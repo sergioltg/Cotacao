@@ -10,7 +10,7 @@ import br.com.htecon.persistent.ExEntity;
 @Entity
 @Table(name = "ecdtCidade")
 public class Cidade extends ExEntity {
-	//sergio
+	//sergiodd
 
     @Id
     private Integer cdCidade;

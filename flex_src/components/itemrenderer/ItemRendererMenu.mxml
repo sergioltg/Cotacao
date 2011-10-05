@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" width="100%"
+				autoDrawBackground="false" xmlns:collapsepanel="br.com.htecon.controls.collapsepanel.*" >
+
+	<fx:Script>
+		<![CDATA[
+			import br.com.htecon.controls.collapsepanel.CollapsePanelSkin;
+			import br.com.htecon.events.HtTelaEvent;
+			import br.com.htecon.skin.Images;
+			
+			import spark.skins.spark.ListSkin;
+			
+			protected function list1_clickHandler(event:MouseEvent):void
+			{
+				
+				if (event.currentTarget.selectedItem == null){
+					return;
+				}
+				
+				var nmTela:String = event.currentTarget.selectedItem.tela;
+				var localModulo:String = event.currentTarget.selectedItem.caminhoModuloFlex;
+				
+				for (var x:int = 0; x < parent.numChildren; x++) {
+					if (ItemRendererMenu(parent.getChildAt(x)) != this) {
+						ItemRendererMenu(parent.getChildAt(x)).deSelectList();
+					}
+				}
+					
+				if (nmTela){
+					//					 Listeners em:
+					//									HtTabManager -> set tabNavigator;
+					dispatchEvent(new HtTelaEvent(HtTelaEvent.OPEN, localModulo, nmTela, true));
+				}
+			}
+			
+			public function deSelectList():void {
+				list.selectedIndex = -1;
+			}
+		]]>
+	</fx:Script>
+
+	
+	<collapsepanel:CollapsePanel skinClass="br.com.htecon.controls.collapsepanel.CollapsePanelSkin"
+							  mode="open" width="100%">
+		<collapsepanel:staticChildren>
+			<s:HGroup>
+				<s:Group>
+					<s:BitmapImage source="{Images.IMAGE_ICO_CADASTRO}"/>
+				</s:Group>
+				
+				<s:Group>
+					<s:Label text="{data.nmMenu}" color="#FFFFFF" fontSize="12" top="4" fontWeight="bold"/>
+					<s:Label text="{data.nmMenu}" color="#464646" fontSize="12" top="3" fontWeight="bold"/>
+				</s:Group>
+			</s:HGroup>
+		</collapsepanel:staticChildren>
+		
+		<s:List dataProvider="{data.children}" labelField="nmMenu" width="100%" click="list1_clickHandler(event)"
+				rollOverColor="#f3fbff" selectionColor="#e6f6fd" id="list" borderVisible="false" right="1" 
+				itemRenderer="br.com.htecon.skin.ListMenuItemRenderer" >
+			<s:layout >
+				<s:VerticalLayout gap="0"/>
+			</s:layout>
+		</s:List>
+		  
+	</collapsepanel:CollapsePanel>
+</s:ItemRenderer>

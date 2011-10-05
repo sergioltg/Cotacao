@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<swiz:BeanLoader xmlns:swiz="http://swiz.swizframework.org" 
+			xmlns:controllers="components.controllers.*" 
+			xmlns:delegates="components.delegates.*"
+			xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:delegate="br.com.htecon.delegate.*">
+	
+	<fx:Declarations>
+		
+		<mx:RemoteObject id="basicService" 
+						 destination="basicRemote"/>
+		
+		<mx:RemoteObject id="segurancaService" 
+						 destination="segurancaService"/>		
+	
+		<delegate:BasicDelegate id="basicDelegate"/>
+		
+		<controllers:LoginController id="loginController"/>
+	
+
+		
+	</fx:Declarations>
+	
+</swiz:BeanLoader>

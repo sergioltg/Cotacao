@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:DropDownList xmlns:fx="http://ns.adobe.com/mxml/2009" styleName="dropDownPrincipal"
+			xmlns:s="library://ns.adobe.com/flex/spark" height="39"
+			xmlns:mx="library://ns.adobe.com/flex/mx"
+			labelFunction="{labelFunctionModulo}" borderColor="#bababa" rollOverColor="#f3fbff" selectionColor="#e6f6fd"
+			selectedIndex="0" change="dropdownlist1_changeHandler(event)">
+	
+	<fx:Script>
+		<![CDATA[
+			import components.InformacoesSistema;
+			
+			import data.Usuario;
+			
+			import mx.collections.ArrayCollection;
+			
+			import spark.events.IndexChangeEvent;
+			
+			
+			[Bindable]
+			private var informacoesSistema:InformacoesSistema = InformacoesSistema.instance;
+			
+			private function labelFunctionModulo( item:Object ):String{
+				return item.modulo.nmModulo;
+			}
+			
+
+			protected function dropdownlist1_changeHandler(event:IndexChangeEvent):void{
+				if(event.newIndex == -1){
+					selectedIndex = 0;
+				}
+			}
+
+		]]>
+	</fx:Script>
+</s:DropDownList>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TextInput xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			 xmlns:s="library://ns.adobe.com/flex/spark" 
+			 xmlns:mx="library://ns.adobe.com/flex/mx"
+			 restrict="0-9" maxChars="13" textAlign="left" 
+			 creationComplete="createComplete()" change="formataTelefone(event)">
+	
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.validators.StringValidator;
+			import mx.events.ValidationResultEvent; 
+			public var tecla:uint;          
+			
+			private function createComplete():void{
+				this.restrict = "0-9";
+				this.maxChars = 13;
+				this.addEventListener("keyDown", getKeyboard);
+				var f1:Function = function(e:Event){
+					dispatchEvent(new Event("telefoneChange"));
+				}
+				this.addEventListener("change", f1);
+			}     
+			
+			public function formataTelefone(event:Object):void{
+				
+				var telefoneInput2:String = this.text;
+				telefoneInput2 = telefoneInput2.replace("-", "");
+				telefoneInput2 = telefoneInput2.replace("(", "");
+				telefoneInput2 = telefoneInput2.replace(")", "");
+				var Sub0to2:String = telefoneInput2.substring(0,2);
+				var Sub2to6:String = telefoneInput2.substring(2,6);
+				var Sub6to10:String = telefoneInput2.substring(6,10);
+				
+				if(this.selectionEndIndex != this.length && tecla != Keyboard.BACKSPACE){
+					if(Sub2to6.length > 0 && Sub6to10.length == 0){ 
+						telefoneInput2 = "(" + Sub0to2+ ")" + Sub2to6;
+					}
+					if(Sub6to10.length > 0 ){ 
+						telefoneInput2 ="(" + Sub0to2+ ")" + Sub2to6 + "-" + Sub6to10;
+					}				
+					
+					if(this.selectionEndIndex == 4 && Sub0to2.length == 2 || this.selectionEndIndex == 9 && Sub2to6.length == 4){
+						this.setSelection(this.selectionEndIndex +1,this.selectionEndIndex +1);
+					}
+					this.text = telefoneInput2;
+				}
+				
+				if(this.selectionEndIndex != this.length && tecla == Keyboard.BACKSPACE){
+					if(Sub2to6.length > 0 && Sub6to10.length == 0){ 
+						telefoneInput2 = "(" + Sub0to2+ ")" + Sub2to6;
+					}
+					if(Sub6to10.length > 0 ){ 
+						telefoneInput2 ="(" + Sub0to2+ ")" + Sub2to6 + "-" + Sub6to10;
+					}	
+					this.text = telefoneInput2;
+					//this.errorString = ""; 
+				}
+				
+				if(this.selectionEndIndex == this.length){
+					if(tecla != Keyboard.BACKSPACE){
+						if(Sub2to6.length > 0 && Sub6to10.length == 0){ 
+							telefoneInput2 = "(" + Sub0to2+ ")" + Sub2to6;
+						}
+						if(Sub6to10.length > 0 ){ 
+							telefoneInput2 ="(" + Sub0to2+ ")" + Sub2to6 + "-" + Sub6to10;
+						}		
+						this.text = telefoneInput2;
+						//this.errorString = ""; 
+						this.setSelection(this.text.length,this.text.length);
+					}
+				}
+				this.errorString = '';
+				dispatchEvent(new Event("telefoneChange"));
+			}
+			
+			
+			public function getKeyboard(keyCode:uint):void{ 
+				tecla = keyCode;
+			} 
+			
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+</mx:TextInput>

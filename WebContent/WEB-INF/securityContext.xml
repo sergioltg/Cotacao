@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:flex="http://www.springframework.org/schema/flex"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/flex 
+		http://www.springframework.org/schema/flex/spring-flex-1.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+        http://www.springframework.org/schema/jdbc
+        http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+        http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+
+	<security:global-method-security secured-annotations="enabled" >
+		 <security:protect-pointcut access="ROLE_USER" 
+		      expression="execution(* br.com.extra..*Service.*(..))"/>
+		 <security:protect-pointcut access="ROLE_USER" 
+		      expression="execution(* br.com.htecon.server.services..*Service.*(..))"/>
+		 <security:protect-pointcut access="ROLE_USER" 
+		      expression="execution(* flex..*.*(..))"/>		      
+	</security:global-method-security>
+	
+	<security:http entry-point-ref="preAuthenticatedEntryPoint">
+		<security:anonymous enabled="false"/>
+    </security:http>
+    
+    <bean id="preAuthenticatedEntryPoint" 
+        class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint" />
+	
+	<security:authentication-manager>
+	    <security:authentication-provider ref='authenticationProvider'>
+	        <security:password-encoder hash="md5"/>
+	    </security:authentication-provider>	
+	</security:authentication-manager>
+	
+	<bean id="segUserMessageInterceptor" class="br.com.extra.seguranca.authentication.SegUserMessageInterceptor">
+	</bean>
+	
+	<bean id="authenticationResult" class="br.com.extra.seguranca.server.login.DefaultAuthenticationResult">
+		<property name="cdSistema" value="1"/>
+	</bean>	
+	
+    <flex:message-broker>
+       <flex:message-interceptor ref="segUserMessageInterceptor"/>
+       <flex:secured />
+    </flex:message-broker>
+
+	<bean id="authenticationProvider" class="br.com.extra.seguranca.authentication.DefaultAuthenticationProvider">
+    </bean>
+    
+   	<bean id="LoginProvider" class="br.com.extra.seguranca.server.login.DefaultLoginProvider">
+		<property name="usuarioDAO" ref="UsuarioDAO"></property>
+	</bean>	
+	
+        
+</beans>

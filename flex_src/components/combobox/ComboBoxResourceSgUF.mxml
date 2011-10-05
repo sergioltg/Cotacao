@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources:ComboBoxResource
+	xmlns="com.farata.resources" xmlns:mx="http://www.adobe.com/2006/mxml"	
+	xmlns:resources="com.farata.resources.*"
+	dropdownWidth="110"
+	width="110">
+	<resources:dataProvider>
+		<mx:Array>
+			<mx:Object data="" label="" />
+			<mx:Object data="AC" label="AC" />
+			<mx:Object data="AL" label="AL" />
+			<mx:Object data="AP" label="AP" />			
+			<mx:Object data="AM" label="AM" />			
+			<mx:Object data="BA" label="BA" />			
+			<mx:Object data="CE" label="CE" />			
+			<mx:Object data="DF" label="DF" />			
+			<mx:Object data="ES" label="ES" />			
+			<mx:Object data="GO" label="GO" />			
+			<mx:Object data="MA" label="MA" />			
+			<mx:Object data="MT" label="MT" />			
+			<mx:Object data="MS" label="MS" />			
+			<mx:Object data="MG" label="MG" />			
+			<mx:Object data="PA" label="PA" />			
+			<mx:Object data="PB" label="PB" />			
+			<mx:Object data="PR" label="PR" />			
+			<mx:Object data="PE" label="PE" />			
+			<mx:Object data="PI" label="PI" />			
+			<mx:Object data="RJ" label="RJ" />			
+			<mx:Object data="RN" label="RN" />			
+			<mx:Object data="RS" label="RS" />			
+			<mx:Object data="RO" label="RO" />			
+			<mx:Object data="RR" label="RR" />			
+			<mx:Object data="SC" label="SC" />			
+			<mx:Object data="SP" label="SP" />			
+			<mx:Object data="SE" label="SE" />			
+			<mx:Object data="TO" label="TO" />			
+		</mx:Array>
+	</resources:dataProvider>
+</resources:ComboBoxResource>

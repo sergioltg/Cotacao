@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources:ComboBoxResource
+	xmlns="com.farata.resources" xmlns:mx="http://www.adobe.com/2006/mxml"	
+	xmlns:resources="com.farata.resources.*"
+	dropdownWidth="85"
+	width="80">
+	<resources:dataProvider>
+		<mx:Array>
+			<mx:Object data="F" label="Física" />
+			<mx:Object data="J" label="Jurídica" />
+		</mx:Array>
+	</resources:dataProvider>
+</resources:ComboBoxResource>

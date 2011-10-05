@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<actionScriptProperties mainApplicationPath="CotacaoMain.mxml" projectUUID="9e85e9c0-b7d5-4d4c-904b-90b3b2845156" version="6">
+  <compiler additionalCompilerArguments="-services &quot;C:/Projetos/Cotacao/Projeto/WebContent/WEB-INF/flex/services-config.xml&quot; -locale pt_BR" autoRSLOrdering="true" copyDependentFiles="true" fteInMXComponents="false" generateAccessible="true" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin" rootURL="http://localhost:8080/Cotacao" sourceFolderPath="flex_src" strict="true" targetPlayerVersion="0.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
+    <compilerSourcePath/>
+    <libraryPath defaultLinkType="0">
+      <libraryPathEntry kind="4" path="">
+        <excludedEntries>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/flex.swc" useDefaultLinkType="false"/>
+        </excludedEntries>
+      </libraryPathEntry>
+      <libraryPathEntry kind="1" linkType="1" path="flex_libs"/>
+      <libraryPathEntry kind="3" linkType="1" path="/htFlex/bin/htFlex.swc" useDefaultLinkType="false"/>
+    </libraryPath>
+    <sourceAttachmentPath/>
+  </compiler>
+  <applications>
+    <application path="CotacaoMain.mxml"/>
+  </applications>
+  <modules>
+    <module application="flex_src/CotacaoMain.mxml" destPath="modules/ModuloCadastroBasico.swf" optimize="true" sourcePath="flex_src/modules/ModuloCadastroBasico.mxml"/>
+  </modules>
+  <buildCSSFiles/>
+</actionScriptProperties>

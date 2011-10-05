@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	creationComplete="creationCompleteHandler()" 
+	width="100%" height="100%" xmlns:util="util.*" 
+	xmlns:flexlib="flexlib.*" xmlns:local="*" verticalScrollPolicy="off" horizontalScrollPolicy="off"
+	xmlns:util1="br.com.htecon.util.*" xmlns:s="library://ns.adobe.com/flex/spark"  
+	xmlns:menu="components.menu.*" xmlns:modulo="br.com.htecon.util.modulo.*" xmlns:containers="flexlib.containers.*" xmlns:collapsepanel="br.com.htecon.controls.collapsepanel.*">
+	
+	<mx:Script>
+		<![CDATA[
+			import br.com.htecon.events.HtTelaEvent;
+			import br.com.htecon.skin.Images;
+			import br.com.htecon.skin.ScrollSkinMenu;
+			
+			import components.InformacoesSistema;
+			import components.constants.ConstantsAdvice;
+			import components.itemrenderer.ItemRendererMenu;
+			
+			import mx.core.FlexGlobals;
+			import mx.events.ItemClickEvent;
+			
+			import org.swizframework.Swiz;
+			
+			import spark.components.Application;
+			
+			import view.cotacao.CadastroCotacao;
+			import view.segmento.CadastroSegmentoClass;
+			
+			public function creationCompleteHandler():void
+			{
+				dispatchEvent(new HtTelaEvent(HtTelaEvent.OPEN, "", ConstantsAdvice.TELA_WELCOME, true));
+			}
+			
+			public function closeTabs():void {
+				for (var n:int = tn.numChildren - 1; n > 0; n--) {
+					tn.removeChildAt(n);
+				}
+			}
+			
+			private function logout():void {
+				Swiz.dispatchEvent(new Event(ConstantsAdvice.EVENT_LOGOUT));
+			}
+			
+			// Quando o combobox for setado para -1, colocar como default o primeiro item, essa ação ocorre quando eh feito 
+			// o logout	
+			private function set menuChange(selectedIndex:int):void{
+				if( cbMenuModulo != null && cbMenuModulo.selectedIndex == -1 ){
+					cbMenuModulo.selectedIndex = 0;
+				}
+			} 
+			
+		]]>
+	</mx:Script>
+	
+	<modulo:HtGerenciaTelas id="htGerenciaTelas" hashTelas="{{bemvindo: BemVindo, cadastrocotacao:CadastroCotacao, cadastrosegmentoclass:CadastroSegmentoClass}}" />
+	<util1:HtTabManager id="tabManager" tabNavigator="{tn}" gerenciaTelas="{htGerenciaTelas}"/>
+	
+	<mx:Binding source="{cbMenuModulo.selectedIndex}" destination="menuChange"/>	
+	
+	<!-- The Window Header -->
+	<s:SkinnableContainer id="header" top="0" left="0" right="0" height="73">
+		<s:Rect top="0" left="0" right="0" bottom="0">
+			<s:fill>
+				<mx:SolidColor color="0x545454"/>
+			</s:fill>
+		</s:Rect>
+		
+		<s:Rect top="1" left="0" right="0" bottom="1">
+			<s:fill>
+				<mx:SolidColor color="0x7d7d7d"/>
+			</s:fill>
+		</s:Rect>	
+		
+		<s:Rect top="2" bottom="2" right="0" left="0">
+			<s:fill>
+				<mx:LinearGradient rotation="90">
+					<mx:GradientEntry color="#606060"/>
+					<mx:GradientEntry color="#3e3e3e"/>
+				</mx:LinearGradient>
+			</s:fill>
+		</s:Rect>
+		
+		<s:BitmapImage source="@Embed('components/assets/logo.png')" top="2"/>
+		
+		<!-- <mx:Image source="@Embed('components/assets/ED/top_left.png')" height="100%"/>
+		<mx:Image source="@Embed('components/assets/ED/top_right.png')" height="100%"/> -->
+		<s:VGroup right="10" top="5">
+			<s:HGroup>
+				<s:Group >
+					<s:BitmapImage source="{Images.IMAGE_ICO_USUARIO}" top="5"/>
+				</s:Group>
+				
+				<s:Group height="100%">
+					<s:Label text="{InformacoesSistema.instance.user}" verticalCenter="1" />
+					<s:Label text="{InformacoesSistema.instance.user}" verticalCenter="0" color="#e7e7e7"/>
+				</s:Group>
+				
+				<s:Button click="logout()" label="Sair" skinClass="br.com.htecon.skin.ButtonLogout" 
+						  cornerRadius="3" height="25" width="60"/>				
+			</s:HGroup>
+			
+			<s:Group width="100%">
+				<s:Label text="{'Versão: 01.00.11'}" right="0" top="11"/>
+				<s:Label text="{'Versão: 01.00.11'}" color="#e7e7e7" right="0" top="10"/>
+			</s:Group>
+		</s:VGroup>	
+		
+	</s:SkinnableContainer>
+	
+	<mx:HDividedBox top="66" left="-1" right="8" bottom="5" >
+		<s:Group width="200" height="100%" minWidth="150">
+			<s:Rect left="0" right="1" top="30" bottom="0">
+				<s:fill>
+					<mx:SolidColor color="0xFFFFFF"/>
+				</s:fill>
+				
+				<s:stroke>
+					<mx:SolidColorStroke color="0xbababa"/>
+				</s:stroke>
+			</s:Rect>
+			<mx:VBox width="100%" height="100%" verticalGap="-1">
+				<menu:CbMenuModulo id="cbMenuModulo" width="100%" dataProvider="{InformacoesSistema.instance.menu}"/>
+				<s:Scroller height="100%" width="100%" verticalScrollPolicy="auto" styleName="scrollerMenu">
+					<s:Group>
+						<s:DataGroup  itemRenderer="components.itemrenderer.ItemRendererMenu" clipAndEnableScrolling="false"
+									  dataProvider="{cbMenuModulo.selectedItem.menus}" width="100%">
+							<s:layout>
+								<s:VerticalLayout gap="-1"/>
+							</s:layout>
+						</s:DataGroup>	
+					</s:Group>
+				</s:Scroller>
+			</mx:VBox>
+		</s:Group>
+		
+		<mx:Box minWidth="500" styleName="tabContainer" height="100%" width="100%" paddingTop="10" paddingLeft="0" paddingBottom="0" paddingRight="0">
+			<containers:SuperTabNavigator id="tn" width="100%" height="100%" tabWidth="140" dragEnabled="false" popUpButtonPolicy="on" 
+										  borderColor="#B0B0B0" paddingLeft="0" paddingRight="0" paddingBottom="0" paddingTop="0" borderVisible="true" 
+										  historyManagementEnabled="false"/>
+		</mx:Box>
+	</mx:HDividedBox>
+	
+</mx:Canvas>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application
+	xmlns:mx="library://ns.adobe.com/flex/mx" 
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	backgroundColor="#f3f3f3"
+	preloader="components.preload.CustomPreloader"
+	xmlns:local="*" 
+	xmlns:containers="flexlib.containers.*" 
+	preinitialize="onPreInit()" minWidth="500" minHeight="400"
+	xmlns:flexlib="flexlib.*" 
+	xmlns:view="view.*" 
+	creationComplete="creationCompleteHandler()" xmlns:swiz="http://swiz.swizframework.org" xmlns:collapsepanel="br.com.htecon.controls.collapsepanel.*">
+	
+	<fx:Script>
+		<![CDATA[
+			import br.com.htecon.controls.HtDataGridColumn;
+			import br.com.htecon.errors.FaultHandlerEvent;
+			import br.com.htecon.skin.Images;
+			
+			import components.InformacoesSistema;
+			import components.constants.ConstantsAdvice;
+			import components.events.UsuarioLogadoEvent;
+			
+			import data.Usuario;
+			
+			import mx.controls.Alert;
+			import mx.core.UIComponentGlobals;
+			import mx.logging.LogEventLevel;
+			
+			import org.swizframework.Swiz;
+			
+			import view.Login;
+			import view.MainPanel;
+			
+			private var justImport:JustImport;
+			
+			private var mainPanel:MainPanel;
+			private var login:Login;
+			
+			// Embed a TTF file
+			[Embed(source='components/assets/fonts/MYRIAD.TTF', fontName='MYRIAD', mimeType='application/x-font', embedAsCFF="true")] 
+			private static var MYRIAD:Class;
+			
+			[Embed(source='components/assets/fonts/MYRIADB.TTF', fontName='MYRIAD', mimeType='application/x-font', fontWeight='bold', embedAsCFF="false")] 
+			private static var MYRIADB:Class;
+			
+			[Embed(source='components/assets/fonts/MYRIADI.TTF', fontName='MYRIAD', mimeType='application/x-font', fontWeight='italic', embedAsCFF="false")] 
+			private static var MYRIADI:Class; 
+			
+			private function onPreInit() : void {
+				var global:CSSStyleDeclaration = StyleManager.getStyleDeclaration("global");
+				if (!global)
+					global = new CSSStyleDeclaration("global");
+				global.setStyle("fontSize", 12);
+				global.setStyle("fontFamily", "MYRIAD");
+				global.setStyle("embedFonts", true);
+				
+				StyleManager.setStyleDeclaration("global", global, true);	
+				
+				Swiz.addEventListener(FaultHandlerEvent.FAULT_HANDLER, handlerFaultError);
+			}
+			
+			private function handlerFaultError(event:FaultHandlerEvent):void {
+				if (event.faultEvent.fault.faultString == ConstantsAdvice.ERROR_SESSAOEXPIRADA) {
+					event.preventDefault();
+					Swiz.dispatch(ConstantsAdvice.EVENT_LOGOUT);
+				}
+			}
+			
+			private function sucessHandler(event:Event):void {
+				loginEfetuado();
+			}
+			
+			private function loginEfetuado():void {
+				if (login != null) {
+					appContainer.removeChild(login);
+				}
+				if (mainPanel == null) {
+					mainPanel = new MainPanel();
+					appContainer.addChild(mainPanel);
+				}				
+			}
+			
+			private function logout():void {
+				mainPanel.closeTabs();
+				execlogin();
+			}
+			
+			private function execlogin(): void {
+				if (!login) {
+					login = new Login();
+					login.addEventListener("success", sucessHandler);				
+				} else {
+					login.textInputUser.text = "";
+					login.textInputPassword.text = "";
+					callLater(function():void {login.textInputUser.setFocus();});
+				}
+				appContainer.addChild(login);
+			}
+			
+			private function creationCompleteHandler():void {
+				// Adiciona evento quando eh feito o logout
+				Swiz.addEventListener(ConstantsAdvice.EVENT_LOGOUT, logoutHandler);
+				
+				// Adiciona evento com o resultado se o usuario ja esta logado na aplicacao
+				Swiz.addEventListener(UsuarioLogadoEvent.USUARIOLOGADO, usuarioLogadoHandler);
+				
+				// Dispatch evento para verificar se o usuario ja esta logado
+				Swiz.dispatch(ConstantsAdvice.EVENT_VERIFICALOGADO);				
+				
+			}		
+			
+			private function logoutHandler(event:Event):void {
+				logout();
+			}
+			
+			private function usuarioLogadoHandler(event:UsuarioLogadoEvent):void {
+				if (event.isLogado) {
+					loginEfetuado();
+				} else {
+					execlogin();
+				}
+			}
+			
+			public function get usuario():Usuario {
+				return InformacoesSistema.instance.usuario;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<swiz:SwizConfig  strict="true"
+						  mediateBubbledEvents="true"
+						  beanLoaders="{[Beans]}"
+						  viewPackages="view"
+						  logEventLevel="{LogEventLevel.ERROR}"
+						  />		
+	</fx:Declarations>
+	
+	<fx:Style source="styles.css"/>
+	<s:SkinnableContainer top="0" left="0" right="0" bottom="0">
+		<s:BitmapImage width="100%" height="100%" source="{Images.IMAGE_PATTERN_FUNDO}" fillMode="repeat"/>
+	</s:SkinnableContainer>
+	
+	<mx:Canvas id="appContainer" width="100%" height="100%" styleName="appContainer" y="0" x="0" focusColor="#FFAF23" borderColor="#B0B0B0">
+		
+	</mx:Canvas>
+	
+</s:Application>

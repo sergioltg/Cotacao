@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:TextInput xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			  xmlns:s="library://ns.adobe.com/flex/spark" 
+			  xmlns:mx="library://ns.adobe.com/flex/mx"
+			  textAlign="right" restrict="0-9" 
+			  change="formataValor()" keyFocusChange="keyFocusChangeFormataValor()">
+	
+	<fx:Script>
+		<![CDATA[
+			//Variável que seta o simbolo monetário a ser utilizado na formatação.
+			public var currencySymbol:String = "";
+			
+			/**
+			 * Variável que permite alterar o número de casas decimais, 
+			 * sendo o valor padrão = 2.
+			 * MIN_VALUE=0
+			 * MAX_VALUE=4
+			 */
+			[Inspectable(category="General", enumeration="0,1,2,3,4", defaultValue="2")]
+			public var casasDecimais:Number = 2;
+			
+			/**
+			 * Variável que conterá o valor das casasDecimais + 1 (equivalente a vírgula), para 
+			 * tratar a parte inteira do valor digitado.
+			 */
+			var diminuidor:Number;
+			
+			[Bindable]
+			public var textFormatado:String="";
+			
+			override public function get text():String{
+				return valorNumber +"";
+			}
+			
+			override public function set text(value:String):void {
+				super.text = value;
+				formataValor();
+			}
+			
+			
+			/**
+			 * Formata o valor inserido no campo no formato R$##.###.###,##, sendo o valor de 
+			 * casasDecimais = 2 e currencySymbol = "R$";
+			 */			
+			public function formataValor():void{
+				if(super.text == ''){
+					return;	
+				}
+				if(casasDecimais>4){
+					casasDecimais=4;
+				}else if(casasDecimais<0){
+					casasDecimais=0;
+				}
+				var vr:String = super.text;
+				if(currencySymbol!=""){
+					vr = vr.replace(currencySymbol,"");
+				}
+				for(var i:Number = 0; i<int(vr.length/3); i++){
+					vr = vr.replace(".","");
+				}
+				vr = vr.replace(",","");
+				/**
+				 * Variável que armazenará a parte inteira do número digitado.
+				 */ 
+				var vrInt:String="";
+				
+				/**
+				 * Verifica se possui casas suficientes para colocar vírgula no valor digitado, se sim, 
+				 * insere a vírgula.
+				 */ 
+				if(vr.length>casasDecimais&&casasDecimais!=0){
+					vr = vr.substr(0, vr.length-casasDecimais) + "," + 
+						vr.substr(vr.length-casasDecimais, vr.length);
+					vrInt = vr.substr(0, vr.length-(casasDecimais+1));
+					diminuidor = casasDecimais + 1;
+				}else{
+					vrInt = vr;
+					diminuidor = 0;
+				}
+				//Insere os pontos
+				if(vrInt.length>3){
+					var qtsPontos:Number = int(vrInt.length/3);
+					var j:Number = 3;
+					for(var i:Number = 0; i<qtsPontos; i++){
+						if(!(vr.length - diminuidor - j==0)){
+							vr = vr.substr(0,vr.length - diminuidor - j) +"."+ 
+								vr.substr(vr.length - diminuidor - j, vr.length);
+							j=j+4;
+						}
+					}
+				}
+				//Verifica se existe um simbolo monetário, se existir, insere antes do valor.
+				if(currencySymbol!=""&&vr!=""){
+					vr = currencySymbol+""+vr;
+				}
+				super.text = vr;
+				//setSelection está mantendo o cursor na última casa.
+				super.setSelection(vr.length,vr.length);
+				textFormatado = valorComCasasDecimais;
+				dispatchEvent(new Event("valorAlterado"));
+			}
+			/**
+			 * Coloca "," se o usuário tirar o focus do campo e se o texto digitado for menor que a 
+			 * quantidade de casas decimais necessárias e diferente de zero.
+			 */
+			public function keyFocusChangeFormataValor():void{
+				var cas:Number = super.text.length;
+				var cas2:Number = super.text.length;
+				if(cas<casasDecimais+1&&cas2!=0){
+					var zeros:String="";
+					for(var i:Number=0; i<casasDecimais; i++){
+						zeros=zeros+"0";						
+					} 
+					var vr:String = super.text;
+					vr = vr.substr(0, vr.length) + "," + zeros;
+					super.text=vr;
+				}
+				dispatchEvent(new Event("valorAlterado"));
+			}
+			
+			/**
+			 * Método que formata o valor para o formato #######.##
+			 * Sem pontos e sem currencySymbol.
+			 */
+			[Bindable(event="valorAlterado")]
+			public function get valorComCasasDecimais(){
+				var vr:String = super.text;
+				
+				for(var i:Number = 0; i<int(vr.length/3); i++){
+					vr = vr.replace(".","");
+				}
+				if(currencySymbol!=""){
+					vr = vr.replace(currencySymbol,"");
+				}
+				return vr.replace(",",".");
+			}
+			
+			/**
+			 * Seta no valor deste campo uma String no formato #####.##,
+			 * altera o formato da String para #####.## e chama o formata 
+			 * valor. 
+			 */
+			public function set valorComCasasDecimais(valor:String){
+				for(var i:Number = 0; i<int(valor.length); i++){
+					valor = valor.replace(".",",");
+				}
+				super.text = valor;
+				formataValor();
+			}			
+			
+			/**
+			 * Método retorna o valor em forma de Number.
+			 */
+			[Bindable(event="valorAlterado")]
+			public function get valorNumber():Number{
+				var vr:String = super.text;
+				
+				for(var i:Number = 0; i<int(vr.length/3); i++){
+					vr = vr.replace(".","");
+				}
+				if(currencySymbol!=""){
+					vr = vr.replace(currencySymbol,"");
+				}
+				vr = vr.replace(",",".");
+				if(vr == ''){
+					return NaN;
+				}
+				return new Number(vr);
+			}				
+		]]>
+	</fx:Script>
+	
+</mx:TextInput>

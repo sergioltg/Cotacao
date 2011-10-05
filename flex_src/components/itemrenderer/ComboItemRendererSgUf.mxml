@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 width="100%" horizontalAlign="center" verticalAlign="middle">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			
+			private var arrayUFs:Array = new Array("", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", 
+				"MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO");
+			
+			public function get valor():String{
+				return cbSgEstado.selectedItem as String;
+			}
+			
+			public function set valor( valor:String ):void{
+				cbSgEstado.selectedIndex = getIndexByUF( valor );
+			}
+			
+			private function getIndexByUF( valor:String ):int{
+				var i:Number = 0
+				for each( var uf:String in arrayUFs ){
+					if( valor == uf ){
+						return i;
+					}
+					i++
+				}
+				
+				return 0;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<mx:ComboBox id="cbSgEstado" selectedIndex="{getIndexByUF((data as Object).sgUf)}" 
+					dataProvider="{new ArrayCollection(arrayUFs)}"/>
+</mx:HBox>

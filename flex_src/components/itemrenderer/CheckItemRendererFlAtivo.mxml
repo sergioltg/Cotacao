@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 width="100%" horizontalAlign="center" verticalAlign="middle">
+	
+	<fx:Script>
+		<![CDATA[
+			
+			public function get valor():String{
+				return cbFlPrincipal.selected ? "S" : "N";
+			}
+			
+			public function set valor( valor:String ):void{
+				cbFlPrincipal.selected = valor == 'S' ? true : false;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<mx:CheckBox id="cbFlPrincipal" selected="{(data as Object).flAtivo == 'S' ? true : false}"/>
+</mx:HBox>

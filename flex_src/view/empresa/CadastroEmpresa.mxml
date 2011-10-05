@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<empresa:CadastroEmpresaClass xmlns:fx="http://ns.adobe.com/mxml/2009"
+                           xmlns:s="library://ns.adobe.com/flex/spark" label="Empresa"
+                           xmlns:mx="library://ns.adobe.com/flex/halo" xmlns:empresa="view.empresa.*" 
+                           xmlns:controls="br.com.htecon.controls.*" xmlns:faratasystems="http://www.faratasystems.com/2008/components"
+                           xmlns:consultas="components.consultas.*" width="100%" height="100%" >
+    <fx:Script>
+        <![CDATA[
+            import components.InformacoesSistema;
+        ]]>
+    </fx:Script>
+
+    <s:VGroup>
+        <controls:HtDataForm width="450" height="270" dataProvider="{controller.entity}" id="dataForm" >
+            <controls:HtDataFormItem label="Empresa:" dataField="cdEmpresa" width="100%" requiredValidator="true" requiredMessage="Empresa">
+              <controls:HtNumericInput restrict="0-9"/>
+            </controls:HtDataFormItem>
+            <controls:HtDataFormItem label="Razaosocial:" dataField="nmRazaosocial" width="100%" requiredValidator="true" requiredMessage="Razaosocial">
+              <s:TextInput width="100" maxChars="120"/>
+            </controls:HtDataFormItem>
+            <controls:HtDataFormItem label="Fantasia:" dataField="nmFantasia" width="100%" >
+              <s:TextInput width="100" maxChars="120"/>
+            </controls:HtDataFormItem>
+            <controls:HtDataFormItem label="Responsavel:" dataField="nmResponsavel" width="100%" requiredValidator="true" requiredMessage="Responsavel">
+              <s:TextInput width="100" maxChars="120"/>
+            </controls:HtDataFormItem>
+            <controls:HtDataFormItem label="Cnpj:" dataField="nuCnpj" width="100%" requiredValidator="true" requiredMessage="Cnpj">
+              <s:TextInput width="100" maxChars="14"/>
+            </controls:HtDataFormItem>
+            <controls:HtDataFormItem label="Endereco:" dataField="nmEndereco" width="100%" >
+              <s:TextInput width="100" maxChars="400"/>
+            </controls:HtDataFormItem>
+            <controls:HtDataFormItem label="Bairro:" dataField="nmBairro" width="100%" >
+              <s:TextInput width="100" maxChars="400"/>
+            </controls:HtDataFormItem>
+            <controls:HtDataFormItem label="Cidade:" dataField="cdCidade" width="100%" >
+              <s:TextInput width="100" maxChars="50"/>
+            </controls:HtDataFormItem>
+            <controls:HtDataFormItem label="Uf:" dataField="sgUf" width="100%" >
+              <s:TextInput width="100" maxChars="2"/>
+            </controls:HtDataFormItem>
+            <controls:HtDataFormItem label="Telefone:" dataField="nuTelefone" width="100%" >
+              <s:TextInput width="100" maxChars="20"/>
+            </controls:HtDataFormItem>
+            <controls:HtDataFormItem label="Email:" dataField="deEmail" width="100%" >
+              <s:TextInput width="100" maxChars="100"/>
+            </controls:HtDataFormItem>
+            <controls:HtDataFormItem label="Ativo:" dataField="flAtivo" width="100%" requiredValidator="true" requiredMessage="Ativo">
+              <faratasystems:CheckBox onValue="S" offValue="N" />
+            </controls:HtDataFormItem>
+            <controls:HtDataFormItem label="Expiracao:" dataField="dtExpiracao" width="100%" >
+              <controls:HtDateField />
+            </controls:HtDataFormItem>
+            <controls:HtDataFormItem label="Naoexpira:" dataField="flNaoexpira" width="100%" >
+              <faratasystems:CheckBox onValue="S" offValue="N" />
+            </controls:HtDataFormItem>
+            <controls:HtDataFormItem label="Contratado:" dataField="flContratado" width="100%" >
+              <faratasystems:CheckBox onValue="S" offValue="N" />
+            </controls:HtDataFormItem>
+            <controls:HtDataFormItem label="Contrato:" dataField="vlContrato" width="100%" >
+              <s:TextInput width="100%" />
+            </controls:HtDataFormItem>
+            <controls:HtDataFormItem label="Pendenteaprovacao:" dataField="flPendenteaprovacao" width="100%" >
+              <faratasystems:CheckBox onValue="S" offValue="N" />
+            </controls:HtDataFormItem>
+            <controls:HtDataFormItem label="Segmento:" dataField="cdSegmento" width="100%" >
+              <controls:HtNumericInput restrict="0-9"/>
+            </controls:HtDataFormItem>
+        </controls:HtDataForm>
+        <controls:HtButtonBar buttons="{[HtButtonBar.SAVE_BUTTON, HtButtonBar.DELETE_BUTTON, HtButtonBar.BACK_BUTTON]}" id="buttonBar" paddingLeft="10"/>
+    </s:VGroup>
+</empresa:CadastroEmpresaClass>

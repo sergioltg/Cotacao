@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:fx="http://ns.adobe.com/mxml/2009"
+				xmlns:mx="library://ns.adobe.com/flex/mx"
+				width="100%"
+				height="100%"
+				creationComplete="creationCompleteHandler()"
+				xmlns:s="library://ns.adobe.com/flex/spark"
+				backgroundColor="#F5F5F5" xmlns:view="view.*">
+	<fx:Metadata>
+        [Event(name="success")]
+    </fx:Metadata>
+
+	<fx:Script>
+		<![CDATA[
+			import components.constants.ConstantsAdvice;
+			import components.controllers.LoginController;
+			
+			import mx.controls.Alert;
+			import mx.managers.PopUpManager;
+			
+			import org.swizframework.Swiz;
+
+			[Bindable]
+			public var controller:LoginController;
+
+			private function login():void
+			{
+				if (textInputUser.text == "" || textInputPassword.text == "")
+				{
+					Alert.show("Informe todos os campos para continuar");
+					return;
+				}
+				controller.startProcessando();
+				controller.login(textInputUser.text, textInputPassword.text);
+			}
+			
+			private function creationCompleteHandler():void
+			{
+				Swiz.addEventListener(ConstantsAdvice.EVENT_LOGINSUCCESS, loginSuccessHandler);
+				
+				callLater( function():void {focusManager.setFocus(textInputUser);});
+				
+				ExternalInterface.call("focusApplication");
+				
+				controller = Swiz.getBean("loginController") as LoginController;				
+				
+			}
+
+			private function loginSuccessHandler(event:Event):void
+			{
+				dispatchEvent(new Event("success"));
+				PopUpManager.removePopUp(this);
+			}
+
+			protected function formLogin_keyDownHandler(event:KeyboardEvent):void
+			{
+				if (event.keyCode == 13) {
+					login();
+				}
+			}
+
+		]]>
+
+	</fx:Script>
+	
+	<mx:Panel width="380" height="185" horizontalAlign="center" verticalAlign="middle" layout="absolute" borderColor="#B0B0B0" horizontalCenter="0"  verticalCenter="0"
+			  title="Informe o usuário:" titleBackgroundSkin="@Embed('components/assets/Header2.png')">		
+		<mx:Form  id="formLogin" x="1" y="0" width="376" height="100%" borderColor="#F5F5F5" keyDown="formLogin_keyDownHandler(event)">
+			<mx:FormItem label="Usuário:">
+				<s:TextInput id="textInputUser"
+							 text="admin"/>
+			</mx:FormItem>
+			
+			<mx:FormItem label="Senha:">
+				<s:TextInput id="textInputPassword"
+							 displayAsPassword="true"
+							 text="sac"/>
+			</mx:FormItem>
+			
+			<mx:FormItem direction="horizontal"  horizontalAlign="right" width="100%">
+				<s:Button  id="loginButton" label="Entrar" x="330"  y="112" click="login()"/>
+			</mx:FormItem>
+		</mx:Form>
+	</mx:Panel>
+</mx:Canvas>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cotacao:CadastroCotacaoClass xmlns:fx="http://ns.adobe.com/mxml/2009"
+                           xmlns:s="library://ns.adobe.com/flex/spark" label="Cotacao"
+                           xmlns:mx="library://ns.adobe.com/flex/halo" xmlns:cotacao="view.cotacao.*" 
+                           xmlns:controls="br.com.htecon.controls.*" xmlns:faratasystems="http://www.faratasystems.com/2008/components"
+                           xmlns:consultas="components.consultas.*" width="100%" height="100%" >
+    <fx:Script>
+        <![CDATA[
+            import components.InformacoesSistema;
+        ]]>
+    </fx:Script>
+
+    <s:VGroup>
+        <controls:HtDataForm width="450" height="270" dataProvider="{controller.entity}" id="dataForm" >
+            <controls:HtDataFormItem label="Cotacao:" dataField="cdCotacao" width="100%" requiredValidator="true" requiredMessage="Cotacao">
+              <controls:HtNumericInput restrict="0-9"/>
+            </controls:HtDataFormItem>
+            <controls:HtDataFormItem label="Cotacao:" dataField="dtCotacao" width="100%" >
+              <controls:HtDateField />
+            </controls:HtDataFormItem>
+            <controls:HtDataFormItem label="Inclusao:" dataField="dtInclusao" width="100%" >
+              <controls:HtDateField />
+            </controls:HtDataFormItem>
+            <controls:HtDataFormItem label="Empresa:" dataField="cdEmpresa" width="100%" requiredValidator="true" requiredMessage="Empresa">
+              <controls:HtNumericInput restrict="0-9"/>
+            </controls:HtDataFormItem>
+            <controls:HtDataFormItem label="Usuario:" dataField="cdUsuario" width="100%" requiredValidator="true" requiredMessage="Usuario">
+              <controls:HtNumericInput restrict="0-9"/>
+            </controls:HtDataFormItem>
+            <controls:HtDataFormItem label="Encerramento:" dataField="flEncerramento" width="100%" requiredValidator="true" requiredMessage="Encerramento">
+              <faratasystems:CheckBox onValue="S" offValue="N" />
+            </controls:HtDataFormItem>
+            <controls:HtDataFormItem label="Liberacotacao:" dataField="flLiberacotacao" width="100%" requiredValidator="true" requiredMessage="Liberacotacao">
+              <faratasystems:CheckBox onValue="S" offValue="N" />
+            </controls:HtDataFormItem>
+            <controls:HtDataFormItem label="Cotacaofim:" dataField="dtCotacaofim" width="100%" >
+              <controls:HtDateField />
+            </controls:HtDataFormItem>
+            <controls:HtDataFormItem label="Cotacao:" dataField="hrCotacao" width="100%" >
+              <controls:HtDateField />
+            </controls:HtDataFormItem>
+            <controls:HtDataFormItem label="Cotacaofim:" dataField="hrCotacaofim" width="100%" >
+              <controls:HtDateField />
+            </controls:HtDataFormItem>
+            <controls:HtDataFormItem label="Pedidoliberado:" dataField="flPedidoliberado" width="100%" requiredValidator="true" requiredMessage="Pedidoliberado">
+              <faratasystems:CheckBox onValue="S" offValue="N" />
+            </controls:HtDataFormItem>
+        </controls:HtDataForm>
+        <controls:HtButtonBar buttons="{[HtButtonBar.SAVE_BUTTON, HtButtonBar.DELETE_BUTTON, HtButtonBar.BACK_BUTTON]}" id="buttonBar" paddingLeft="10"/>
+    </s:VGroup>
+</cotacao:CadastroCotacaoClass>

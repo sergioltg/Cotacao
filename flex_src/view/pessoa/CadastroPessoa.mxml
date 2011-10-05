@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pessoa:CadastroPessoaClass xmlns:fx="http://ns.adobe.com/mxml/2009"
+                           xmlns:s="library://ns.adobe.com/flex/spark" label="Pessoa"
+                           xmlns:pessoa="view.pessoa.*" paddingTop="15" 
+                           xmlns:controls="br.com.htecon.controls.*" xmlns:faratasystems="http://www.faratasystems.com/2008/components"
+                           xmlns:consultas="components.consultas.*" width="100%" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:controls1="com.adobe.flex.extras.controls.*" xmlns:util="br.com.htecon.util.*" >
+    <fx:Script>
+        <![CDATA[
+			import components.controllers.CadastroPessoaController;
+			import components.resources.ComboBoxResourceSexo;
+			import components.resources.ComboBoxResourceTipoPessoa;
+			
+			import data.Pessoa;
+
+
+        ]]>
+    </fx:Script>
+	
+	<fx:Declarations>
+		<util:HtMultiDataFormValidate id="forms" container="{vGroupPrincipal}" fieldChanged="forms_fieldChangedHandler(event)" />
+	</fx:Declarations>	
+	
+	<fx:Style>
+		.formStyle {
+			paddingBottom: 0;
+			paddingTop: 0;
+			paddingLeft: 0;
+			paddingRight: 0;
+		}
+	</fx:Style>	
+	
+    <s:VGroup width="670" id="vGroupPrincipal">
+        <controls:HtDataForm width="100%" dataProvider="{controller.entity}" styleName="formStyle" labelWidth="140" >
+			<controls:HtDataFormItem label="Nome:" dataField="nmPessoa" width="100%" requiredValidator="true" requiredMessage="Nome" >
+				<s:TextInput width="100%" maxChars="255"/>
+			</controls:HtDataFormItem>			
+		</controls:HtDataForm>
+		<s:HGroup width="100%">
+			<controls:HtDataForm width="250" dataProvider="{controller.entity}" styleName="formStyle" labelWidth="140" >
+				<controls:HtDataFormItem label="Tipo pessoa:" dataField="tpPessoa" width="100%" >
+					<faratasystems:ComboBox resource="{ComboBoxResourceTipoPessoa}"/>
+				</controls:HtDataFormItem>
+			</controls:HtDataForm>
+			<controls:HtDataForm width="100%" dataProvider="{controller.entity}" styleName="formStyle" visible="{Pessoa(controller.entity).tpPessoa == 'J'}" >
+				<controls:HtDataFormItem label="Fantasia:" dataField="nmFantasia" width="100%" >
+					<s:TextInput width="100%" maxChars="255"/>
+				</controls:HtDataFormItem>				
+			</controls:HtDataForm>
+		</s:HGroup>
+		<s:HGroup width="100%">
+			<controls:HtDataForm width="100%" dataProvider="{controller.entity}" styleName="formStyle" labelWidth="140" >		
+				<controls:HtDataFormItem label="{controller.entity.tpPessoa == 'F'?'CPF:':'CNPJ:'}" dataField="nuCpfcnpj" width="100%">
+					<controls1:MaskedTextInput inputMask="{controller.entity.tpPessoa == 'F'?'###/.###/.###-##':'##/.###/.###//####-##'}" cellColor="white" saveMask="false"/>
+					<controls:validators>
+						<fx:Array>					
+							<faratasystems:ValidationRule required="true" rule="{validaNuCpfcnpj}" id="validationCpfcnpj" />
+						</fx:Array>
+					</controls:validators>
+				</controls:HtDataFormItem>
+			</controls:HtDataForm>
+			<controls:HtDataForm width="100%" dataProvider="{controller.entity}" styleName="formStyle" >	
+				<controls:HtDataFormItem label="R.G./I.E.:" dataField="nuRgie" width="100%" >
+					<s:TextInput width="100%" maxChars="20"/>
+				</controls:HtDataFormItem>
+			</controls:HtDataForm>
+		</s:HGroup>
+		<s:HGroup width="100%">
+			<controls:HtDataForm width="100%" dataProvider="{controller.entity}" styleName="formStyle" labelWidth="140" >
+				<controls:HtDataFormItem label="Cidade:" dataField="cdCidade" width="100%" >
+					<consultas:CampoConsultaCidade propertyCache="cidade" width="100%"/>
+				</controls:HtDataFormItem>
+			</controls:HtDataForm>
+			<controls:HtDataForm width="150" dataProvider="{controller.entity}" styleName="formStyle" >
+				<controls:HtDataFormItem label="Cep:" dataField="nuCep" width="100%" >
+					<s:TextInput width="100%" maxChars="8" restrict="0-9" />
+				</controls:HtDataFormItem>
+			</controls:HtDataForm>			
+		</s:HGroup>
+		<controls:HtDataForm width="100%" dataProvider="{controller.entity}" styleName="formStyle" labelWidth="140" >
+            <controls:HtDataFormItem label="Endereço:" dataField="deEndereco" width="100%" >
+              <s:TextInput width="100%" maxChars="255"/>
+            </controls:HtDataFormItem>
+			<controls:HtDataFormItem label="Complemento:" dataField="deComplemento" width="100%" >
+				<s:TextInput width="100%" maxChars="150"/>
+			</controls:HtDataFormItem>
+			<controls:HtDataFormItem label="Bairro:" dataField="deBairro" width="100%" >
+				<s:TextInput width="100%" maxChars="150"/>
+			</controls:HtDataFormItem>
+		</controls:HtDataForm>
+		<s:HGroup width="100%">
+			<controls:HtDataForm width="44%" dataProvider="{controller.entity}" styleName="formStyle" labelWidth="140" >
+				<controls:HtDataFormItem label="Fone:" dataField="nuFone" width="100%" >
+					<s:TextInput width="100%" maxChars="15"/>
+				</controls:HtDataFormItem>
+			</controls:HtDataForm>
+			<controls:HtDataForm width="28%" dataProvider="{controller.entity}" styleName="formStyle" >
+				<controls:HtDataFormItem label="Fax:" dataField="nuFax" width="100%" >
+					<s:TextInput width="100%" maxChars="15"/>
+				</controls:HtDataFormItem>
+			</controls:HtDataForm>
+			<controls:HtDataForm width="28%" dataProvider="{controller.entity}" styleName="formStyle" >
+				<controls:HtDataFormItem label="Celular:" dataField="nuCelular" width="100%" >
+					<s:TextInput width="100%" maxChars="15"/>
+				</controls:HtDataFormItem>
+			</controls:HtDataForm>
+		</s:HGroup>
+		<s:HGroup width="100%">
+			<controls:HtDataForm width="260" dataProvider="{controller.entity}" styleName="formStyle" labelWidth="140" >
+				<controls:HtDataFormItem label="Sexo:" dataField="flSexo" width="100%" >
+					<faratasystems:ComboBox resource="{ComboBoxResourceSexo}"/>
+				</controls:HtDataFormItem>
+			</controls:HtDataForm>
+			<controls:HtDataForm width="100%" dataProvider="{controller.entity}" styleName="formStyle">
+				<controls:HtDataFormItem label="Nacionalidade:" dataField="cdNacionalidade" width="100%" >
+					<consultas:CampoConsultaNacionalidade propertyCache="nacionalidade"/>
+				</controls:HtDataFormItem>
+			</controls:HtDataForm>			
+		</s:HGroup>
+		<controls:HtDataForm width="100% " dataProvider="{controller.entity}" styleName="formStyle" labelWidth="140" >
+			<controls:HtDataFormItem label="Cidade natural:" dataField="cdCidadenatural" width="100%" >
+				<consultas:CampoConsultaCidade width="100%"/>
+			</controls:HtDataFormItem>			
+            <controls:HtDataFormItem label="Profissão:" dataField="deProfissao" width="100%" >				
+              <s:TextInput width="100%" maxChars="150"/>
+            </controls:HtDataFormItem>
+		</controls:HtDataForm>
+		<s:HGroup width="100%">
+			<controls:HtDataForm width="100% " dataProvider="{controller.entity}" styleName="formStyle" labelWidth="140" >
+				<controls:HtDataFormItem label="Estado civil:" dataField="cdEstadocivil" width="100%" >
+					<faratasystems:ComboBox dataProvider="{CadastroPessoaController(controller).dataEstadocivil}" labelField="deEstadocivil" keyField="cdEstadocivil"/>
+				</controls:HtDataFormItem>
+			</controls:HtDataForm>
+			<controls:HtDataForm width="100% " dataProvider="{controller.entity}" styleName="formStyle">
+	            <controls:HtDataFormItem label="Regime casamento:" dataField="cdRegimecasamento" width="100%" >
+					<faratasystems:ComboBox dataProvider="{CadastroPessoaController(controller).dataRegimecasamento}" labelField="deRegimecasamento" keyField="cdRegimecasamento"/>
+	            </controls:HtDataFormItem>
+			</controls:HtDataForm>
+		</s:HGroup>
+		
+		<controls:HtButtonBar buttons="{[HtButtonBar.SAVE_BUTTON, HtButtonBar.BACK_BUTTON]}" id="buttonBar" paddingLeft="10"/>
+    </s:VGroup>
+</pessoa:CadastroPessoaClass>

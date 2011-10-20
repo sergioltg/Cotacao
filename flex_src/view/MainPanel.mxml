@@ -123,7 +123,7 @@
 				<menu:CbMenuModulo id="cbMenuModulo" width="100%" dataProvider="{InformacoesSistema.instance.menu}"/>
 				<s:Scroller height="100%" width="100%" verticalScrollPolicy="auto" styleName="scrollerMenu">
 					<s:Group>
-						<s:DataGroup  itemRenderer="components.itemrenderer.ItemRendererMenu" clipAndEnableScrolling="false"
+						<s:DataGroup itemRenderer="components.itemrenderer.ItemRendererMenu" clipAndEnableScrolling="false"
 									  dataProvider="{cbMenuModulo.selectedItem.menus}" width="100%">
 							<s:layout>
 								<s:VerticalLayout gap="-1"/>

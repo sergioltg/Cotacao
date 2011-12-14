@@ -34,6 +34,9 @@ package view.fornecedor
             if (!valid) {
                 showErrosForm(dataForm);
             }
+			
+			fornecedor.flAtivo = "S";
+			fornecedor.flHabilitacotacao = "S";
 
             return valid;
         }

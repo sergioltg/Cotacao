@@ -1,8 +1,14 @@
 package br.com.extra.persistent;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import br.com.htecon.persistent.ExEntity;
@@ -11,7 +17,12 @@ import br.com.htecon.persistent.ExEntity;
 @Table(name = "ecdtFornecedor")
 public class Fornecedor extends ExEntity {
 
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     private Integer cdFornecedor;
 
     @Column(length = 120)
@@ -46,6 +57,18 @@ public class Fornecedor extends ExEntity {
 
     @Column(length = 1)
     private String flHabilitacotacao;
+    
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cdCidade", insertable = false, updatable = false)
+	private Cidade cidade;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cdSegmento", insertable = false, updatable = false)
+	private Segmento segmento;
+	
+	@OneToMany
+	@JoinColumn(name = "cdFornecedor", insertable = false, updatable = false)
+	private List<Fornecedorcontato> contatos;	
 
     public Integer getCdFornecedor() {
         return cdFornecedor;
@@ -142,5 +165,29 @@ public class Fornecedor extends ExEntity {
     public void setFlHabilitacotacao(String flHabilitacotacao) {
         this.flHabilitacotacao = flHabilitacotacao;
     }
+
+	public Cidade getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
+	}
+
+	public void setSegmento(Segmento segmento) {
+		this.segmento = segmento;
+	}
+
+	public Segmento getSegmento() {
+		return segmento;
+	}
+
+	public void setContatos(List<Fornecedorcontato> contatos) {
+		this.contatos = contatos;
+	}
+
+	public List<Fornecedorcontato> getContatos() {
+		return contatos;
+	}
 
 }

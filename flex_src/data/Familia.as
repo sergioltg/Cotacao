@@ -3,7 +3,7 @@ package data
   import br.com.htecon.data.HtEntity;
 
   [Bindable]
-  [RemoteClass(alias="br.com.addo.persistent.Familia")]
+  [RemoteClass(alias="br.com.extra.persistent.Familia")]
   public class Familia extends HtEntity
   {
 

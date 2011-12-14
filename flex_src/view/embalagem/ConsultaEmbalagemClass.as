@@ -23,21 +23,9 @@ package view.embalagem
 
             controller = new HtDbController(Embalagem);
 
-            telaCadastro = CadastroEmbalagem;
+            addColumn("sgEmbalagem","Embalagem").width = 100;
 
-            var dgsgEmbalagem:DataGridColumn = new DataGridColumn("sgEmbalagem");
-            dgsgEmbalagem.width = 100;
-            dgsgEmbalagem.headerText = "Embalagem";
-
-            var dgnmEmbalagem:DataGridColumn = new DataGridColumn("nmEmbalagem");
-            dgnmEmbalagem.width = 100;
-            dgnmEmbalagem.headerText = "Embalagem";
-
-            var dgflAtivo:DataGridColumn = new DataGridColumn("flAtivo");
-            dgflAtivo.width = 100;
-            dgflAtivo.headerText = "Ativo";
-
-            dataGridConsulta.columns = [dgsgEmbalagem, dgnmEmbalagem, dgflAtivo];
+            addColumn("nmEmbalagem","Embalagem").width = 100;
 
          //    telaFilter = new TelaFormFilter();
          //    telaFilter.dataProvider = filter;
@@ -47,7 +35,6 @@ package view.embalagem
          //    panelFilter.height = 120;
             montaFiltroPelasColunas();
             abrirConsultando = true;
-            estadoEditar = true;
         }
 
         override protected function limpar() : void {

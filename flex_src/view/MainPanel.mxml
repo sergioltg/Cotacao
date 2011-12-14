@@ -11,21 +11,21 @@
 		<![CDATA[
 			import br.com.htecon.events.HtTelaEvent;
 			import br.com.htecon.skin.Images;
-			import br.com.htecon.skin.ScrollSkinMenu;
 			
 			import components.InformacoesSistema;
 			import components.constants.ConstantsAdvice;
 			import components.itemrenderer.ItemRendererMenu;
 			
-			import mx.core.FlexGlobals;
-			import mx.events.ItemClickEvent;
-			
 			import org.swizframework.Swiz;
 			
-			import spark.components.Application;
-			
 			import view.cotacao.CadastroCotacao;
+			import view.embalagem.CadastroEmbalagemClass;
+			import view.familia.CadastroFamiliaClass;
+			import view.medida.CadastroMedidaClass;
 			import view.segmento.CadastroSegmentoClass;
+			import view.fornecedor.ConsultaFornecedorClass;
+			import view.produto.ConsultaProdutoClass;
+			import view.empresa.ConsultaEmpresaClass;
 			
 			public function creationCompleteHandler():void
 			{
@@ -53,7 +53,8 @@
 		]]>
 	</mx:Script>
 	
-	<modulo:HtGerenciaTelas id="htGerenciaTelas" hashTelas="{{bemvindo: BemVindo, cadastrocotacao:CadastroCotacao, cadastrosegmentoclass:CadastroSegmentoClass}}" />
+	<modulo:HtGerenciaTelas id="htGerenciaTelas" hashTelas="{{bemvindo: BemVindo, cadastrocotacao:CadastroCotacao, cadastrosegmentoclass:CadastroSegmentoClass, cadastroembalagemclass: CadastroEmbalagemClass, cadastromedidaclass:CadastroMedidaClass, 
+							cadastrofamiliaclass: CadastroFamiliaClass, consultafornecedorclass: ConsultaFornecedorClass, consultaprodutoclass: ConsultaProdutoClass, consultaempresaclass: ConsultaEmpresaClass}}" />
 	<util1:HtTabManager id="tabManager" tabNavigator="{tn}" gerenciaTelas="{htGerenciaTelas}"/>
 	
 	<mx:Binding source="{cbMenuModulo.selectedIndex}" destination="menuChange"/>	

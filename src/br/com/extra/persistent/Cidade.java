@@ -24,7 +24,7 @@ public class Cidade extends ExEntity {
         return cdCidade;
     }
 
-	public void setCdCidade(Integer cdCidade) {
+    public void setCdCidade(Integer cdCidade) {
         this.cdCidade = cdCidade;
     }
 

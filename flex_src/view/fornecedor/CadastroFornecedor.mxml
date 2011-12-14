@@ -6,49 +6,65 @@
                            xmlns:consultas="components.consultas.*" width="100%" height="100%" >
     <fx:Script>
         <![CDATA[
-            import components.InformacoesSistema;
+			import components.InformacoesSistema;
+			
+			import data.Fornecedorcontato;
         ]]>
     </fx:Script>
 
-    <s:VGroup>
-        <controls:HtDataForm width="450" height="270" dataProvider="{controller.entity}" id="dataForm" >
-            <controls:HtDataFormItem label="Fornecedor:" dataField="cdFornecedor" width="100%" requiredValidator="true" requiredMessage="Fornecedor">
-              <controls:HtNumericInput restrict="0-9"/>
+    <s:VGroup width="750">
+        <controls:HtDataForm width="100%" dataProvider="{controller.entity}" id="dataForm" >
+            <controls:HtDataFormItem label="Fornecedor:" dataField="cdFornecedor" width="100%" readOnly="true">
+              <controls:HtNumericInput/>
             </controls:HtDataFormItem>
-            <controls:HtDataFormItem label="Razaosocial:" dataField="nmRazaosocial" width="100%" requiredValidator="true" requiredMessage="Razaosocial">
-              <s:TextInput width="100" maxChars="120"/>
+            <controls:HtDataFormItem label="Nome/Razao Social:" dataField="nmRazaosocial" width="100%" requiredValidator="true" requiredMessage="Nome/Razao Social">
+              <s:TextInput width="400" maxChars="120"/>
             </controls:HtDataFormItem>
-            <controls:HtDataFormItem label="Fantasia:" dataField="nmFantasia" width="100%" >
-              <s:TextInput width="100" maxChars="120"/>
-            </controls:HtDataFormItem>
-            <controls:HtDataFormItem label="Cnpj:" dataField="nuCnpj" width="100%" requiredValidator="true" requiredMessage="Cnpj">
-              <s:TextInput width="100" maxChars="14"/>
-            </controls:HtDataFormItem>
-            <controls:HtDataFormItem label="Endereco:" dataField="nmEndereco" width="100%" >
-              <s:TextInput width="100" maxChars="400"/>
-            </controls:HtDataFormItem>
-            <controls:HtDataFormItem label="Bairro:" dataField="nmBairro" width="100%" >
-              <s:TextInput width="100" maxChars="400"/>
-            </controls:HtDataFormItem>
-            <controls:HtDataFormItem label="Cidade:" dataField="cdCidade" width="100%" >
-              <s:TextInput width="100" maxChars="50"/>
-            </controls:HtDataFormItem>
-            <controls:HtDataFormItem label="Uf:" dataField="sgUf" width="100%" >
-              <s:TextInput width="100" maxChars="2"/>
-            </controls:HtDataFormItem>
+			<controls:HtDataFormItem label="Fantasia:" dataField="nmFantasia" width="100%" >
+				<s:TextInput width="100" maxChars="120"/>
+			</controls:HtDataFormItem>
+			<controls:HtDataFormItem label="Segmento:" dataField="cdSegmento" width="100%" >
+				<consultas:CampoConsultaSegmento propertyCache="segmento" width="100%"/>
+			</controls:HtDataFormItem>
+			<controls:HtDataFormItem label="Cnpj:" dataField="nuCnpj" width="100%" requiredValidator="true" requiredMessage="Cnpj">
+				<s:TextInput width="170" maxChars="14"/>
+			</controls:HtDataFormItem>			
+			<controls:HtDataFormItem label="Endereco:" dataField="nmEndereco" width="100%" >
+				<s:TextInput width="300" maxChars="400"/>
+			</controls:HtDataFormItem>
+			<controls:HtDataFormItem label="Bairro:" dataField="nmBairro" width="100%" >
+				<s:TextInput width="100" maxChars="400"/>
+			</controls:HtDataFormItem>
+			<controls:HtDataFormItem label="Cidade:" dataField="cdCidade" width="100%" >
+				<consultas:CampoConsultaCidade propertyCache="cidade" width="100%"/>
+			</controls:HtDataFormItem>
             <controls:HtDataFormItem label="Telefone:" dataField="nuTelefone" width="100%" >
               <s:TextInput width="100" maxChars="20"/>
             </controls:HtDataFormItem>
             <controls:HtDataFormItem label="Email:" dataField="deEmail" width="100%" >
               <s:TextInput width="100" maxChars="100"/>
             </controls:HtDataFormItem>
-            <controls:HtDataFormItem label="Ativo:" dataField="flAtivo" width="100%" requiredValidator="true" requiredMessage="Ativo">
-              <faratasystems:CheckBox onValue="S" offValue="N" />
-            </controls:HtDataFormItem>
-            <controls:HtDataFormItem label="Habilitacotacao:" dataField="flHabilitacotacao" width="100%" requiredValidator="true" requiredMessage="Habilitacotacao">
-              <faratasystems:CheckBox onValue="S" offValue="N" />
-            </controls:HtDataFormItem>
         </controls:HtDataForm>
+		
+		<!-- Datagrid Contatos  -->
+		<controls:HtPanel width="100%" borderColor="#B0B0B0"  title="Contatos" paddingTop="10" paddingBottom="10" id="panelContatos"  >
+			<s:HGroup width="100%" height="120">
+				<controls:HtDataGridDialog id="dataGridContatos" dataProvider="{controller.entity.contatos}" width="100%" height="100%" 
+										   editable="false" buttonBar="{buttonBarContatos}" dialogClass="{DialogContatos}" entityClass="{Fornecedorcontato}">
+					<controls:columns>
+						<controls:HtDataGridColumn headerText="Codigo" dataField="cdContato" width="80" editable="false"  />
+						<controls:HtDataGridColumn headerText="Nome contato" dataField="nmContato" editable="false" />
+						<controls:HtDataGridColumn headerText="Cidade" width="120" dataField="cidade.nmCidade" editable="false"   />
+						<controls:HtDataGridColumn headerText="Telefone" width="100" dataField="nuTelefone" editable="false" />
+					</controls:columns>
+				</controls:HtDataGridDialog>
+				<controls:HtButtonBar id="buttonBarContatos" direction="vertical" 
+									  buttons="{[HtButtonBar.NEW_BUTTON, HtButtonBar.DELETE_BUTTON]}" 
+									  buttonWidth="22" paddingLeft="0" paddingRight="0" paddingTop="22"/>
+			</s:HGroup>
+		</controls:HtPanel>	
+		<!-- Datagrid Contatos -->		
+		
         <controls:HtButtonBar buttons="{[HtButtonBar.SAVE_BUTTON, HtButtonBar.DELETE_BUTTON, HtButtonBar.BACK_BUTTON]}" id="buttonBar" paddingLeft="10"/>
     </s:VGroup>
 </fornecedor:CadastroFornecedorClass>

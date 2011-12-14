@@ -2,7 +2,7 @@ package components.consultas
 {
     import br.com.htecon.controls.consulta.HtCampoConsulta;
     import br.com.htecon.controls.consulta.HtCampoConsultaItem;
-    import br.com.htecon.delegate.IBasicDelegate;
+    import br.com.htecon.delegate.BasicDelegate;
 
     import data.Medida;
 
@@ -40,7 +40,7 @@ package components.consultas
 
             consultaGrid = ConsultaMedidaClass;
 
-            basicDelegate = IBasicDelegate(Swiz.getBean("basicDelegate"));
+            basicDelegate = BasicDelegate(Swiz.getBean("basicDelegate"));
 
             classFactoryfilter = new ClassFactory(Medida);
 

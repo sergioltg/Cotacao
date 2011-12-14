@@ -3,7 +3,7 @@ package data
   import br.com.htecon.data.HtEntity;
 
   [Bindable]
-  [RemoteClass(alias="br.com.addo.persistent.Segmento")]
+  [RemoteClass(alias="br.com.extra.persistent.Segmento")]
   public class Segmento extends HtEntity
   {
 

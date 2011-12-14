@@ -1,9 +1,12 @@
 package br.com.extra.persistent;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.com.htecon.persistent.ExEntity;
@@ -53,6 +56,10 @@ public class Fornecedorcontato extends ExEntity {
 
     @Column(length = 400)
     private String deObservacoes;
+    
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cdCidade", insertable = false, updatable = false)
+	private Cidade cidade;    
 
     public Integer getCdFornecedor() {
         return cdFornecedor;
@@ -149,5 +156,13 @@ public class Fornecedorcontato extends ExEntity {
     public void setDeObservacoes(String deObservacoes) {
         this.deObservacoes = deObservacoes;
     }
+
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
+	}
+
+	public Cidade getCidade() {
+		return cidade;
+	}
 
 }

@@ -2,15 +2,15 @@ package components.consultas
 {
     import br.com.htecon.controls.consulta.HtCampoConsulta;
     import br.com.htecon.controls.consulta.HtCampoConsultaItem;
-    import br.com.htecon.delegate.IBasicDelegate;
-
+    import br.com.htecon.delegate.BasicDelegate;
+    
     import data.Segmento;
-
+    
     import mx.controls.TextInput;
     import mx.core.ClassFactory;
-
+    
     import org.swizframework.Swiz;
-
+    
     import view.segmento.ConsultaSegmentoClass;
 
     public class CampoConsultaSegmento extends HtCampoConsulta
@@ -30,17 +30,11 @@ package components.consultas
             var campodeSegmento:HtCampoConsultaItem = new HtCampoConsultaItem("deSegmento", textInputdeSegmento);
             addField(campodeSegmento);
 
-            var textInputflAtivo:TextInput = new TextInput();
-            textInputflAtivo.percentWidth = 100;
-            var campoflAtivo:HtCampoConsultaItem = new HtCampoConsultaItem("flAtivo", textInputflAtivo);
-            addField(campoflAtivo);
-
-
             fieldPK = campocdSegmento;
 
             consultaGrid = ConsultaSegmentoClass;
 
-            basicDelegate = IBasicDelegate(Swiz.getBean("basicDelegate"));
+            basicDelegate = BasicDelegate(Swiz.getBean("basicDelegate"));
 
             classFactoryfilter = new ClassFactory(Segmento);
 

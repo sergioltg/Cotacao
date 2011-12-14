@@ -2,9 +2,12 @@ package br.com.extra.persistent;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import br.com.htecon.persistent.ExEntity;
@@ -13,7 +16,12 @@ import br.com.htecon.persistent.ExEntity;
 @Table(name = "ecdtEmpresa")
 public class Empresa extends ExEntity {
 
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     private Integer cdEmpresa;
 
     @Column(length = 120)
@@ -66,7 +74,15 @@ public class Empresa extends ExEntity {
 
     @Column
     private Integer cdSegmento;
-
+    
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cdSegmento", insertable = false, updatable = false)
+	private Segmento segmento;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "cdCidade", insertable = false, updatable = false)
+	private Cidade cidade;
+	
     public Integer getCdEmpresa() {
         return cdEmpresa;
     }
@@ -210,5 +226,21 @@ public class Empresa extends ExEntity {
     public void setCdSegmento(Integer cdSegmento) {
         this.cdSegmento = cdSegmento;
     }
+
+	public Segmento getSegmento() {
+		return segmento;
+	}
+
+	public void setSegmento(Segmento segmento) {
+		this.segmento = segmento;
+	}
+
+	public Cidade getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
+	}
 
 }

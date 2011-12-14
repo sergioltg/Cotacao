@@ -1,13 +1,15 @@
 package data
 {
   import br.com.htecon.data.HtEntity;
+  
+  import mx.collections.ArrayCollection;
 
   [Bindable]
-  [RemoteClass(alias="br.com.addo.persistent.Fornecedor")]
+  [RemoteClass(alias="br.com.extra.persistent.Fornecedor")]
   public class Fornecedor extends HtEntity
   {
 
-    public var cdFornecedor:Integer;
+    public var cdFornecedor:String;
     public var nmRazaosocial:String;
     public var nmFantasia:String;
     public var nuCnpj:String;
@@ -19,9 +21,22 @@ package data
     public var deEmail:String;
     public var flAtivo:String;
     public var flHabilitacotacao:String;
+	public var cdSegmento: String;
+	
+	public var cidade:Cidade;
+	public var segmento:Segmento;
+	
+	public var contatos:ArrayCollection;
 
     override public function getId() : String {
       return cdFornecedor + "";
-    } 
+    }
+	
+	public function Fornecedor() {
+		super();
+		contatos = new ArrayCollection();
+		
+	}
+	
   }
 }

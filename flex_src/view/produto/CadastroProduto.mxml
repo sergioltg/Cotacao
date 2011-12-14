@@ -11,43 +11,39 @@
     </fx:Script>
 
     <s:VGroup>
-        <controls:HtDataForm width="450" height="270" dataProvider="{controller.entity}" id="dataForm" >
+        <controls:HtDataForm width="650" dataProvider="{controller.entity}" id="dataForm" >
             <controls:HtDataFormItem label="Produto:" dataField="nuProduto" width="100%" requiredValidator="true" requiredMessage="Produto">
               <controls:HtNumericInput restrict="0-9"/>
             </controls:HtDataFormItem>
-            <controls:HtDataFormItem label="Produto:" dataField="nmProduto" width="100%" requiredValidator="true" requiredMessage="Produto">
+            <controls:HtDataFormItem label="Nome do Produto:" dataField="nmProduto" width="100%" requiredValidator="true" requiredMessage="Nome do Produto">
               <s:TextInput width="100" maxChars="50"/>
             </controls:HtDataFormItem>
+			<controls:HtDataFormItem label="Familia:" dataField="nuFamilia" width="100%" requiredValidator="true" requiredMessage="Familia">
+				<consultas:CampoConsultaFamilia width="100%"/>
+			</controls:HtDataFormItem>
+			<controls:HtDataFormItem label="EAN:" dataField="nuEanprincipal" width="100%" >
+				<s:TextInput width="100" maxChars="13"/>
+			</controls:HtDataFormItem>			
             <controls:HtDataFormItem label="Embalagem:" dataField="sgEmbalagem" width="100%" requiredValidator="true" requiredMessage="Embalagem">
-              <s:TextInput width="100" maxChars="2"/>
+              <consultas:CampoConsultaEmbalagem width="100%"/>
             </controls:HtDataFormItem>
-            <controls:HtDataFormItem label="Unidadeembalagem:" dataField="qtUnidadeembalagem" width="100%" requiredValidator="true" requiredMessage="Unidadeembalagem">
+            <controls:HtDataFormItem label="Quantidade:" dataField="qtUnidadeembalagem" width="100%" requiredValidator="true" requiredMessage="Quantidade">
               <controls:HtNumericInput restrict="0-9"/>
             </controls:HtDataFormItem>
             <controls:HtDataFormItem label="Medida:" dataField="sgMedida" width="100%" requiredValidator="true" requiredMessage="Medida">
-              <s:TextInput width="100" maxChars="2"/>
-            </controls:HtDataFormItem>
-            <controls:HtDataFormItem label="Embalagemtransf:" dataField="sgEmbalagemtransf" width="100%" requiredValidator="true" requiredMessage="Embalagemtransf">
-              <s:TextInput width="100" maxChars="2"/>
-            </controls:HtDataFormItem>
-            <controls:HtDataFormItem label="Unidadeembalagemtransf:" dataField="qtUnidadeembalagemtransf" width="100%" requiredValidator="true" requiredMessage="Unidadeembalagemtransf">
-              <controls:HtNumericInput restrict="0-9"/>
-            </controls:HtDataFormItem>
-            <controls:HtDataFormItem label="Familia:" dataField="nuFamilia" width="100%" requiredValidator="true" requiredMessage="Familia">
-              <s:TextInput width="100" maxChars="8"/>
-            </controls:HtDataFormItem>
-            <controls:HtDataFormItem label="Ativo:" dataField="flAtivo" width="100%" requiredValidator="true" requiredMessage="Ativo">
-              <faratasystems:CheckBox onValue="S" offValue="N" />
-            </controls:HtDataFormItem>
-            <controls:HtDataFormItem label="Eanprincipal:" dataField="nuEanprincipal" width="100%" >
-              <s:TextInput width="100" maxChars="13"/>
-            </controls:HtDataFormItem>
-            <controls:HtDataFormItem label="Produtocentralizador:" dataField="nuProdutocentralizador" width="100%" >
-              <controls:HtNumericInput restrict="0-9"/>
+              <consultas:CampoConsultaMedida width="100%"/>
             </controls:HtDataFormItem>
             <controls:HtDataFormItem label="Segmento:" dataField="cdSegmento" width="100%" >
               <controls:HtNumericInput restrict="0-9"/>
             </controls:HtDataFormItem>
+			
+			<controls:HtDataFormItem label="Embalagem:" dataField="sgEmbalagemtransf" width="100%" requiredValidator="true" requiredMessage="Embalagemtransf">
+				<s:TextInput width="100" maxChars="2"/>
+			</controls:HtDataFormItem>
+			<controls:HtDataFormItem label="Quantidade:" dataField="qtUnidadeembalagemtransf" width="100%" requiredValidator="true" requiredMessage="Quantidade">
+				<controls:HtNumericInput restrict="0-9"/>
+			</controls:HtDataFormItem>			
+			
         </controls:HtDataForm>
         <controls:HtButtonBar buttons="{[HtButtonBar.SAVE_BUTTON, HtButtonBar.DELETE_BUTTON, HtButtonBar.BACK_BUTTON]}" id="buttonBar" paddingLeft="10"/>
     </s:VGroup>

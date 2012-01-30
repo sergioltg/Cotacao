@@ -6,6 +6,7 @@ package data
   [RemoteClass(alias="br.com.addo.persistent.Estoque")]
   public class Estoque extends HtEntity
   {
+	  
 
     public var cdEmpresa:Integer;
     public var nuProduto:Integer;

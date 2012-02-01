@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009" 
+            xmlns:s="library://ns.adobe.com/flex/spark" 
+              xmlns:mx="library://ns.adobe.com/flex/halo" 
+              xmlns:controls="br.com.htecon.controls.*" 
+              xmlns:consultas="components.consultas.*"  
+              width="100%" height="100%" xmlns:util="br.com.htecon.util.*">
+    <fx:Script>
+        <![CDATA[
+            [Bindable]
+            public var dataProvider:Object;
+            
+            public function clear():void {
+              dataForm.clear();
+            }
+        ]]>
+    </fx:Script>
+
+  <controls:HtDataForm width="100%" height="100%" dataProvider="{dataProvider}" id="dataForm" >
+    <controls:HtDataFormItem dataField="nuProduto" width="100%" label="Codigo:">
+          <s:TextInput width="100" restrict="0-9" />
+    </controls:HtDataFormItem>
+    <controls:HtDataFormItem dataField="nmProduto" width="100%" label="Nome do Produto:">
+          <s:TextInput width="100%" maxChars="100"/>
+    </controls:HtDataFormItem>
+    <controls:HtDataFormItem dataField="nuFamilia" width="100%" label="Familia:">
+          <consultas:CampoConsultaFamilia width="100%"/>
+    </controls:HtDataFormItem>
+    <controls:HtDataFormItem dataField="nuEanprincipal" width="100%" label="EAN:">
+          <s:TextInput width="100" maxChars="20"/>
+    </controls:HtDataFormItem>
+  </controls:HtDataForm>
+</s:VGroup>

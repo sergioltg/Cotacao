@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<produtoassociacao:ProdutoAssociacaoClass xmlns:fx="http://ns.adobe.com/mxml/2009" 
+										  xmlns:s="library://ns.adobe.com/flex/spark" 
+										  xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:produtoassociacao="view.produtoassociacao.*" width="100%" height="100%" xmlns:consultas="components.consultas.*">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:VGroup width="100%" height="100%" paddingLeft="20" paddingTop="20">
+		
+		<s:HGroup width="100%">
+			<s:Label text="Familia:" />
+			<consultas:CampoConsultaFamilia />
+		</s:HGroup>
+		
+		<s:HGroup width="100%" height="100%">
+			<mx:DataGrid dataProvider="{controller.listProdutos}" width="100%">
+				<mx:columns>
+					<mx:DataGridColumn dataField="nuEanprincipal" editable="false"/>
+					<mx:DataGridColumn dataField="nmProduto"/>
+				</mx:columns>
+			</mx:DataGrid>
+			<s:VGroup width="100">
+			</s:VGroup>
+			<mx:DataGrid dataProvider="{controller.listProdutosAssociados}" width="100%">
+				<mx:columns>
+					<mx:DataGridColumn dataField="nuEanprincipal" editable="false"/>
+					<mx:DataGridColumn dataField="nmProduto"/>
+				</mx:columns>				
+			</mx:DataGrid>
+		</s:HGroup>
+	</s:VGroup>
+	
+</produtoassociacao:ProdutoAssociacaoClass>

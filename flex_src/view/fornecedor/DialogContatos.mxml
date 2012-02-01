@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fornecedor:DialogContatosClass
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" label="Contatos" 
+	xmlns:mx="library://ns.adobe.com/flex/mx" 
+	xmlns:fornecedor="view.fornecedor.*" 
+	xmlns:controls="br.com.htecon.controls.*" 
+	xmlns:faratasystems="http://www.faratasystems.com/2008/components" 
+	xmlns:controls1="com.adobe.flex.extras.controls.*" 
+	xmlns:validators="br.com.htecon.validators.*" xmlns:consultas="components.consultas.*">
+	<fx:Script>
+		<![CDATA[
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+	</fx:Declarations>	
+	
+	<s:VGroup id="vGroupPrincipal" paddingLeft="10" width="500">
+		<controls:HtDataForm width="100%" height="100%" dataProvider="{entity}" id="dataForm" paddingBottom="0">
+			
+			<controls:HtDataFormItem dataField="nmContato" width="100%" label="Dependente:">
+				<s:TextInput width="100%" maxChars="150"/>
+			</controls:HtDataFormItem>
+			
+			<controls:HtDataFormItem label="Cidade:" dataField="cdCidade" width="100%" >
+				<consultas:CampoConsultaCidade propertyCache="cidade" width="100%"/>
+			</controls:HtDataFormItem>
+			
+			<controls:HtDataFormItem dataField="nuTelefone" width="100%" label="Telefone:">
+				<s:TextInput width="150" maxChars="40"/>
+			</controls:HtDataFormItem>
+			
+			
+		</controls:HtDataForm>
+			
+		<controls:HtButtonBar id="buttonBar" paddingLeft="10" paddingTop="0"/>		
+	</s:VGroup>
+	
+	
+	
+</fornecedor:DialogContatosClass>

@@ -16,8 +16,8 @@
 		<delegate:BasicDelegate id="basicDelegate"/>
 		
 		<controllers:LoginController id="loginController"/>
-	
-
+		
+		<controllers:ProdutosAssociacaoController id="produtosAssociacaoController"/>
 		
 	</fx:Declarations>
 	

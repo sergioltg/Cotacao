@@ -5,15 +5,22 @@ package view.empresa
     import br.com.htecon.controls.HtButtonBar;
     import br.com.htecon.controls.HtDataForm;
     import br.com.htecon.controls.cadastro.HtCadastroEdit;
-
+    
     import components.InformacoesSistema;
-
+    
     import data.Empresa;
-
+    
+    import flash.display.DisplayObject;
+    
     import mx.controls.Alert;
+    import mx.core.FlexGlobals;
+    
+    import view.produtoassociacao.ProdutoAssociacaoClass;
                                   
     public class CadastroEmpresaClass extends HtCadastroEdit
     {
+		
+		public static var BOTAO_ASSOCIACAOPRODUTOS:String = "ASSOCIACAOPRODUTOS";		
 
         public var dataForm:HtDataForm;
 
@@ -23,6 +30,15 @@ package view.empresa
 
             controller = new HtDbController(Empresa);
         }
+		
+		override protected function createChildren() : void {
+			super.createChildren();
+			
+			buttonBar.addButtonDef({type:BOTAO_ASSOCIACAOPRODUTOS, label:"Produtoss"});	
+			
+			buttonBar.buttons = [HtButtonBar.SAVE_BUTTON, HtButtonBar.DELETE_BUTTON, BOTAO_ASSOCIACAOPRODUTOS, HtButtonBar.BACK_BUTTON];
+		}
+		
 
         private function get empresa():Empresa {
             return controller.entity as Empresa;
@@ -41,6 +57,17 @@ package view.empresa
         override protected function iniciaTela() : void {
             dataForm.setFocus();
         }
+		
+		override protected function trataBotao(button: String):void {
+			super.trataBotao(button);
+			switch (button)
+			{
+				case BOTAO_ASSOCIACAOPRODUTOS:
+					ProdutoAssociacaoClass.open(FlexGlobals.topLevelApplication as DisplayObject, controller.entity);
+					break;				
+			}			
+		}
+		
 
     }
 }

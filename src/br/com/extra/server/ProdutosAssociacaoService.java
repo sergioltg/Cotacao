@@ -31,5 +31,9 @@ public class ProdutosAssociacaoService  extends BasicService {
 	public List<Produto> findProdutos(Integer nuFamilia) {
 		return produtosAssociacaoDAO.findProdutos(nuFamilia);
 	}
+	
+	public void saveProdutosAssociados(Integer type, String id, List changes) {
+				
+	}
 
 }

@@ -2,6 +2,8 @@ package components.controllers
 {
 	import br.com.htecon.controller.HtDbController;
 	
+	import components.delegates.ProdutosAssociacaoDelegate;
+	
 	import data.Prodassociationmeta;
 	
 	import mx.collections.ArrayCollection;
@@ -14,7 +16,7 @@ package components.controllers
 		private var currentId:String;
 		
 		[Autowire(bean="produtosAssociacaoDelegate")]
-		public var produtosAssociacaoDelegate:PessoaDelegate;
+		public var produtosAssociacaoDelegate:ProdutosAssociacaoDelegate;
 		
 		[Bindable]
 		public var listProdutos:ArrayCollection;
@@ -32,14 +34,14 @@ package components.controllers
 			listChanges = new ArrayCollection();
 		}
 		
-		public function findProdutos(nomeProduto:String):void {
-//			executeService(ACTION_SAVE, pessoaDelegate.salvarPessoa(pessoa), resultFindProdutos);			
+		public function findProdutos(nuFamilia):void {
+			executeServiceCall(produtosAssociacaoDelegate.findProdutos(nuFamilia), resultFindProdutos);			
 		}
 		
 		public function findProdutosAssociados(type:int, id:String):void{
 			currentType = type;			
 			currentId = id;
-//			executeService(ACTION_SAVE, produtosAssociacaoDelegate.findProdutosAssociados(type, id), resultFindProdutosAssociados);
+			executeServiceCall(produtosAssociacaoDelegate.findProdutosAssociados(type, id), resultFindProdutosAssociados);
 		}
 		
 		private function resultFindProdutos(event:ResultEvent):void {
@@ -52,7 +54,7 @@ package components.controllers
 		}
 		
 		public function saveProdutosAssociados():void {
-	//		produtosAssociacaoDelegate.saveProdutosAssociados(currentType, currentId, listChanges);			
+			produtosAssociacaoDelegate.saveProdutosAssociados(currentType, currentId, listChanges);			
 		}
 		
 		private function getIndexProduto(cdProduto:String):int {

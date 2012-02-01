@@ -12,7 +12,7 @@ package components.preload
 
 	public class CustomPreloader extends DownloadProgressBar {
 
-        public var wcs:WelcomeScreen; teste jeferson
+        public var wcs:WelcomeScreen;
     
         public function CustomPreloader() 
         {

@@ -11,9 +11,14 @@
 						 destination="basicRemote"/>
 		
 		<mx:RemoteObject id="segurancaService" 
-						 destination="segurancaService"/>		
-	
+						 destination="segurancaService"/>
+		
+		<mx:RemoteObject id="produtosAssociacaoService" 
+						 destination="produtosAssociacaoService"/>		
+		
 		<delegate:BasicDelegate id="basicDelegate"/>
+		
+		<delegates:ProdutosAssociacaoDelegate id="produtosAssociacaoDelegate"/>
 		
 		<controllers:LoginController id="loginController"/>
 		

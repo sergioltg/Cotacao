@@ -27,7 +27,7 @@
 	</bean>	
 	
 	<bean id="BasicService" class="br.com.htecon.server.services.BasicService">
-		<flex:remoting-destination destination-id="basicRemote" />
+		<flex:remoting-destination destination-id="basicRemote" /> 
 	</bean>
 	
    	<bean id="UsuarioService" class="br.com.extra.seguranca.server.UsuarioService">

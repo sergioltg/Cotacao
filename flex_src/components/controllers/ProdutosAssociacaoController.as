@@ -13,8 +13,8 @@ package components.controllers
 		private var currentType:int;
 		private var currentId:String;
 		
-//		[Autowire(bean="produtosAssociacaoDelegate")]
-//		public var produtosAssociacaoDelegate:PessoaDelegate;
+		[Autowire(bean="produtosAssociacaoDelegate")]
+		public var produtosAssociacaoDelegate:PessoaDelegate;
 		
 		[Bindable]
 		public var listProdutos:ArrayCollection;

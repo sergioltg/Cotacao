@@ -1,33 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <produtoassociacao:ProdutoAssociacaoClass xmlns:fx="http://ns.adobe.com/mxml/2009" 
 										  xmlns:s="library://ns.adobe.com/flex/spark" 
-										  xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:produtoassociacao="view.produtoassociacao.*" width="100%" height="100%" xmlns:consultas="components.consultas.*">
+										  xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:produtoassociacao="view.produtoassociacao.*" width="100%" height="100%" xmlns:consultas="components.consultas.*" xmlns:controls="br.com.htecon.controls.*">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:VGroup width="100%" height="100%" paddingLeft="20" paddingTop="20">
+	<s:VGroup width="100%" height="100%" paddingLeft="20" paddingTop="20" paddingRight="20">
 		
-		<s:HGroup width="100%">
+		<s:HGroup width="100%" verticalAlign="middle">
 			<s:Label text="Familia:" />
 			<consultas:CampoConsultaFamilia />
 		</s:HGroup>
 		
 		<s:HGroup width="100%" height="100%">
-			<mx:DataGrid dataProvider="{controller.listProdutos}" width="100%">
+			<mx:DataGrid dataProvider="{controller.listProdutos}" width="100%" height="100%">
 				<mx:columns>
-					<mx:DataGridColumn dataField="nuEanprincipal" editable="false"/>
-					<mx:DataGridColumn dataField="nmProduto"/>
+					<mx:DataGridColumn dataField="nuEanprincipal" editable="false" headerText="EAN"/>
+					<mx:DataGridColumn dataField="nmProduto" headerText="Nome do produto"/>
 				</mx:columns>
 			</mx:DataGrid>
-			<s:VGroup width="100">
+			<s:VGroup width="100" verticalAlign="middle" height="100%" horizontalAlign="center">
+				<s:Button label=">"/>  
+				<s:Button label=">"/>  
 			</s:VGroup>
-			<mx:DataGrid dataProvider="{controller.listProdutosAssociados}" width="100%">
+			<mx:DataGrid dataProvider="{controller.listProdutosAssociados}" width="100%" height="100%">
 				<mx:columns>
-					<mx:DataGridColumn dataField="nuEanprincipal" editable="false"/>
-					<mx:DataGridColumn dataField="nmProduto"/>
+					<mx:DataGridColumn dataField="nuEanprincipal" editable="false" headerText="EAN"/>
+					<mx:DataGridColumn dataField="nmProduto" headerText="Nome do produto"/>
 				</mx:columns>				
 			</mx:DataGrid>
 		</s:HGroup>
+		<controls:HtButtonBar buttons="{[HtButtonBar.SAVE_BUTTON, HtButtonBar.BACK_BUTTON]}" id="buttonBar" paddingLeft="10"/>
 	</s:VGroup>
 	
 </produtoassociacao:ProdutoAssociacaoClass>

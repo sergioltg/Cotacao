@@ -34,7 +34,7 @@ package view.empresa
 		override protected function createChildren() : void {
 			super.createChildren();
 			
-			buttonBar.addButtonDef({type:BOTAO_ASSOCIACAOPRODUTOS, label:"Produtoss"});	
+			buttonBar.addButtonDef({type:BOTAO_ASSOCIACAOPRODUTOS, label:"Produtos"});	
 			
 			buttonBar.buttons = [HtButtonBar.SAVE_BUTTON, HtButtonBar.DELETE_BUTTON, BOTAO_ASSOCIACAOPRODUTOS, HtButtonBar.BACK_BUTTON];
 		}
@@ -63,7 +63,7 @@ package view.empresa
 			switch (button)
 			{
 				case BOTAO_ASSOCIACAOPRODUTOS:
-					ProdutoAssociacaoClass.open(FlexGlobals.topLevelApplication as DisplayObject, controller.entity);
+					ProdutoAssociacaoClass.open(FlexGlobals.topLevelApplication as DisplayObject, empresa.cdEmpresa + "", ProdutoAssociacaoClass.TYPE_EMPRESAS);
 					break;				
 			}			
 		}

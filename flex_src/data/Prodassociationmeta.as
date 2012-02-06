@@ -6,7 +6,7 @@ package data
 			public static var OPERATION_INSERT:String = "I";
 			
 			public var operation:String;
-			public var cdProduto:String;
+			public var nuProduto:String;
 			
 	}
 }

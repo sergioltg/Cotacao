@@ -19,6 +19,11 @@ package data
     public var nuEanprincipal:String;
     public var nuProdutocentralizador:String;
     public var cdSegmento:String;
+	
+	public var segmento:Segmento;
+	public var embalagem:Embalagem;
+	public var medida:Medida;
+	public var familia:Familia;
 
     override public function getId() : String {
       return nuProduto + "";

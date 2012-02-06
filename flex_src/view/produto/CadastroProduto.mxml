@@ -13,7 +13,7 @@
     <s:VGroup>
         <controls:HtDataForm width="650" dataProvider="{controller.entity}" id="dataForm" >
             <controls:HtDataFormItem label="Produto:" dataField="nuProduto" width="100%" requiredValidator="true" requiredMessage="Produto">
-              <controls:HtNumericInput restrict="0-9"/>
+              <s:TextInput restrict="0-9"/>
             </controls:HtDataFormItem>
             <controls:HtDataFormItem label="Nome do Produto:" dataField="nmProduto" width="100%" requiredValidator="true" requiredMessage="Nome do Produto">
               <s:TextInput width="100" maxChars="50"/>
@@ -28,22 +28,20 @@
               <consultas:CampoConsultaEmbalagem width="100%"/>
             </controls:HtDataFormItem>
             <controls:HtDataFormItem label="Quantidade:" dataField="qtUnidadeembalagem" width="100%" requiredValidator="true" requiredMessage="Quantidade">
-              <controls:HtNumericInput restrict="0-9"/>
+              <s:TextInput restrict="0-9"/>
             </controls:HtDataFormItem>
             <controls:HtDataFormItem label="Medida:" dataField="sgMedida" width="100%" requiredValidator="true" requiredMessage="Medida">
               <consultas:CampoConsultaMedida width="100%"/>
             </controls:HtDataFormItem>
             <controls:HtDataFormItem label="Segmento:" dataField="cdSegmento" width="100%" >
-              <controls:HtNumericInput restrict="0-9"/>
-            </controls:HtDataFormItem>
-			
+				<consultas:CampoConsultaSegmento width="100%" propertyCache="segmento"/>
+            </controls:HtDataFormItem>			
 			<controls:HtDataFormItem label="Embalagem:" dataField="sgEmbalagemtransf" width="100%" requiredValidator="true" requiredMessage="Embalagemtransf">
-				<s:TextInput width="100" maxChars="2"/>
+				<consultas:CampoConsultaEmbalagem width="100%"/>
 			</controls:HtDataFormItem>
 			<controls:HtDataFormItem label="Quantidade:" dataField="qtUnidadeembalagemtransf" width="100%" requiredValidator="true" requiredMessage="Quantidade">
-				<controls:HtNumericInput restrict="0-9"/>
+				<s:TextInput restrict="0-9"/>
 			</controls:HtDataFormItem>			
-			
         </controls:HtDataForm>
         <controls:HtButtonBar buttons="{[HtButtonBar.SAVE_BUTTON, HtButtonBar.DELETE_BUTTON, HtButtonBar.BACK_BUTTON]}" id="buttonBar" paddingLeft="10"/>
     </s:VGroup>

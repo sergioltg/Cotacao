@@ -14,7 +14,12 @@ import br.com.htecon.persistent.ExEntity;
 @Table(name = "ecdtProduto")
 public class Produto extends ExEntity {
 
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@Id
     private Integer nuProduto;
 
     @Column(length = 50)
@@ -49,6 +54,10 @@ public class Produto extends ExEntity {
 
     @Column
     private Integer cdSegmento;
+    
+    @ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="cdSegmento",insertable=false,updatable=false)
+    private Segmento segmento;    
 
     @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="sgEmbalagem",insertable=false,updatable=false)
@@ -186,12 +195,20 @@ public class Produto extends ExEntity {
         this.familia = familia;
     }
 
-    public Produto getProduto() {
+    public Produto getProdutocentralizador() {
         return produtocentralizador;
     }
 
-    public void setProduto(Produto produtocentralizador) {
+    public void setProdutocentralizador(Produto produtocentralizador) {
         this.produtocentralizador = produtocentralizador;
     }
+
+	public Segmento getSegmento() {
+		return segmento;
+	}
+
+	public void setSegmento(Segmento segmento) {
+		this.segmento = segmento;
+	}
 
 }

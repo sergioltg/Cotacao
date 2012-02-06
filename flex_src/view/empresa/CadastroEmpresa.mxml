@@ -34,7 +34,7 @@
 				<s:TextInput width="100" maxChars="400"/>
 			</controls:HtDataFormItem>
 			<controls:HtDataFormItem label="Cidade:" dataField="cdCidade" width="100%" >
-				<consultas:CampoConsultaCidade propertyCache="segmento" width="100%"/>
+				<consultas:CampoConsultaCidade propertyCache="cidade" width="100%"/>
 			</controls:HtDataFormItem>			
             <controls:HtDataFormItem label="Responsavel:" dataField="nmResponsavel" width="100%" requiredValidator="true" requiredMessage="Responsavel">
               <s:TextInput width="300" maxChars="120"/>

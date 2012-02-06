@@ -28,14 +28,35 @@ public class ProdutosAssociacaoDAO extends BasicDAO {
 		return query.list();
 	}
 	
-	public List findProdutos(Integer nuFamilia) {
+	public List findProdutos(String nuFamilia) {
 		Session session = (Session) entityManager.getDelegate();
 
 		Query query = session
-				.createQuery("SELECT p FROM Produto p WHERE ep.nuFamilia = :nuFamilia ");
+				.createQuery("SELECT p FROM Produto p WHERE p.nuFamilia = :nuFamilia ");
 		query.setParameter("nuFamilia", nuFamilia);
 
 		return query.list();		
 	}
+	
+	public void insertEmpresaProduto(Integer cdEmpresa, Integer nuProduto) {
+		Session session = (Session) entityManager.getDelegate();
+		
+		Query query = session.createSQLQuery("insert ecdtEmpresaProduto (cdEmpresa, nuProduto) values (:cdEmpresa, :nuProduto)");
+		query.setParameter("cdEmpresa", cdEmpresa);
+		query.setParameter("nuProduto", nuProduto);
+		
+		query.executeUpdate();
+	}
+	
+	public void deleteEmpresaProduto(Integer cdEmpresa, Integer nuProduto) {
+		Session session = (Session) entityManager.getDelegate();
+		
+		Query query = session.createSQLQuery("delete from ecdtEmpresaProduto where cdEmpresa = :cdEmpresa and nuProduto = :nuProduto");
+		query.setParameter("cdEmpresa", cdEmpresa);
+		query.setParameter("nuProduto", nuProduto);
+		
+		query.executeUpdate();
+	}	
+	
 
 }

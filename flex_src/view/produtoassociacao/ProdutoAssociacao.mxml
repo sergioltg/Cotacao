@@ -5,32 +5,32 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:VGroup width="100%" height="100%" paddingLeft="20" paddingTop="20" paddingRight="20">
-		
+	<s:VGroup width="100%" height="100%" paddingLeft="20" paddingTop="20" paddingRight="20">		
 		<s:HGroup width="100%" verticalAlign="middle">
 			<s:Label text="Familia:" />
-			<consultas:CampoConsultaFamilia />
+			<consultas:CampoConsultaFamilia id="campoConsultaFamilia" itemSelected="campoConsultaFamilia_itemSelectedHandler(event)" >
+			</consultas:CampoConsultaFamilia>
 		</s:HGroup>
 		
 		<s:HGroup width="100%" height="100%">
-			<mx:DataGrid dataProvider="{controller.listProdutos}" width="100%" height="100%">
+			<mx:DataGrid dataProvider="{controller.listProdutos}" width="100%" height="100%" id="gridProdutos">
 				<mx:columns>
 					<mx:DataGridColumn dataField="nuEanprincipal" editable="false" headerText="EAN"/>
 					<mx:DataGridColumn dataField="nmProduto" headerText="Nome do produto"/>
 				</mx:columns>
 			</mx:DataGrid>
 			<s:VGroup width="100" verticalAlign="middle" height="100%" horizontalAlign="center">
-				<s:Button label=">"/>  
-				<s:Button label=">"/>  
+				<s:Button id="InsertProductButton" label="&gt;" click="InsertProductButton_clickHandler(event)"/>  
+				<s:Button id="DeleteProductButton" label="&lt;" click="DeleteProductButton_clickHandler(event)"/>  
 			</s:VGroup>
-			<mx:DataGrid dataProvider="{controller.listProdutosAssociados}" width="100%" height="100%">
+			<mx:DataGrid dataProvider="{controller.listProdutosAssociados}" width="100%" height="100%" id="gridProdutosAssociados">
 				<mx:columns>
 					<mx:DataGridColumn dataField="nuEanprincipal" editable="false" headerText="EAN"/>
 					<mx:DataGridColumn dataField="nmProduto" headerText="Nome do produto"/>
 				</mx:columns>				
 			</mx:DataGrid>
 		</s:HGroup>
-		<controls:HtButtonBar buttons="{[HtButtonBar.SAVE_BUTTON, HtButtonBar.BACK_BUTTON]}" id="buttonBar" paddingLeft="10"/>
+		<controls:HtButtonBar buttons="{[HtButtonBar.SAVE_BUTTON, HtButtonBar.BACK_BUTTON]}" id="buttonBar" paddingLeft="10" buttonClicked="buttonBar_buttonClickedHandler(event)"/>
 	</s:VGroup>
 	
 </produtoassociacao:ProdutoAssociacaoClass>

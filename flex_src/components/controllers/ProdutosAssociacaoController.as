@@ -1,16 +1,18 @@
 package components.controllers
 {
 	import br.com.htecon.controller.HtDbController;
+	import br.com.htecon.util.StringUtil;
 	
 	import components.delegates.ProdutosAssociacaoDelegate;
 	
 	import data.Prodassociationmeta;
+	import data.Produto;
 	
 	import mx.collections.ArrayCollection;
 	import mx.rpc.events.ResultEvent;
 
 	public class ProdutosAssociacaoController extends HtDbController
-	{		
+	{
 		
 		private var currentType:int;
 		private var currentId:String;
@@ -34,7 +36,7 @@ package components.controllers
 			listChanges = new ArrayCollection();
 		}
 		
-		public function findProdutos(nuFamilia):void {
+		public function findProdutos(nuFamilia:String):void {
 			executeServiceCall(produtosAssociacaoDelegate.findProdutos(nuFamilia), resultFindProdutos);			
 		}
 		
@@ -54,13 +56,17 @@ package components.controllers
 		}
 		
 		public function saveProdutosAssociados():void {
-			produtosAssociacaoDelegate.saveProdutosAssociados(currentType, currentId, listChanges);			
+			executeService(null, produtosAssociacaoDelegate.saveProdutosAssociados(currentType, currentId, listChanges), resultSaveProdutosAssociados);			
 		}
 		
-		private function getIndexProduto(cdProduto:String):int {
+		private function resultSaveProdutosAssociados(event:ResultEvent):void {
+			listChanges.removeAll();
+		}
+		
+		private function getIndexProduto(nuProduto:String):int {
 			var n:int = 0;
 			for each (var produto:Prodassociationmeta in listChanges) {
-				if (produto.cdProduto == cdProduto) {
+				if (produto.nuProduto == nuProduto) {
 					return n;
 				}
 				n++;
@@ -68,24 +74,54 @@ package components.controllers
 			return -1;
 		}
 		
-		public function addProdutoChange(cdProduto:String):void {
-			var n:int = getIndexProduto(cdProduto);
-			if (n != -1) {
-				listChanges.removeItemAt(n);
-			} else {
-				var insert:Prodassociationmeta = new Prodassociationmeta();
-				insert.cdProduto = cdProduto;
-				insert.operation = Prodassociationmeta.OPERATION_INSERT;
+		public function addProdutos(indices:Array):void {
+			var indicesSorted:Array = indices.sort();
+			for each (var index:int in indices) {
+				var produto:Produto = listProdutos.getItemAt(index) as Produto;
+				listProdutos.removeItemAt(index);
+				listProdutosAssociados.addItem(produto);
+				var n:int = getIndexProduto(produto.nuProduto);
+				if (n != -1) {
+					var meta:Prodassociationmeta = listChanges.getItemAt(n) as Prodassociationmeta;
+					if (meta.operation == Prodassociationmeta.OPERATION_DELETE) {
+						listChanges.removeItemAt(n);
+					}
+				} else {
+					var insert:Prodassociationmeta = new Prodassociationmeta();
+					insert.nuProduto = produto.nuProduto;
+					insert.operation = Prodassociationmeta.OPERATION_INSERT;
+					listChanges.addItem(insert);
+				}
 			}
 		}
 		
-		public function removeProdutoChange(cdProduto:String):void {
-			var n:int = getIndexProduto(cdProduto);
+		public function removeProdutos(indices:Array):void {
+			var indicesSorted:Array = indices.sort();
+			for each (var index:int in indices) {
+				var produto:Produto = listProdutosAssociados.getItemAt(index) as Produto;
+				listProdutosAssociados.removeItemAt(index);
+				var n:int = getIndexProduto(produto.nuProduto);
+				if (n != -1) {
+					var meta:Prodassociationmeta = listChanges.getItemAt(n) as Prodassociationmeta;
+					if (meta.operation == Prodassociationmeta.OPERATION_INSERT) {
+						listChanges.removeItemAt(n);
+					}
+				} else {
+					var insert:Prodassociationmeta = new Prodassociationmeta();
+					insert.nuProduto = produto.nuProduto;
+					insert.operation = Prodassociationmeta.OPERATION_DELETE;
+				}			
+				
+			}			
+		}
+		
+		private function removeProdutoChange(nuProduto:String):void {
+			var n:int = getIndexProduto(nuProduto);
 			if (n != -1) {
 				listChanges.removeItemAt(n);				
 			} else {
 				var insert:Prodassociationmeta = new Prodassociationmeta();
-				insert.cdProduto = cdProduto;
+				insert.nuProduto = nuProduto;
 				insert.operation = Prodassociationmeta.OPERATION_DELETE;
 			}			
 		}

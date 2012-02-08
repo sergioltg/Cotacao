@@ -100,6 +100,7 @@ package components.controllers
 			for each (var index:int in indices) {
 				var produto:Produto = listProdutosAssociados.getItemAt(index) as Produto;
 				listProdutosAssociados.removeItemAt(index);
+				listProdutos.addItem(produto);
 				var n:int = getIndexProduto(produto.nuProduto);
 				if (n != -1) {
 					var meta:Prodassociationmeta = listChanges.getItemAt(n) as Prodassociationmeta;

@@ -3,12 +3,15 @@ package components.controllers
 	import br.com.htecon.controller.HtDbController;
 	import br.com.htecon.util.StringUtil;
 	
+	import com.farata.controls.MessageBox;
+	
 	import components.delegates.ProdutosAssociacaoDelegate;
 	
 	import data.Prodassociationmeta;
 	import data.Produto;
 	
 	import mx.collections.ArrayCollection;
+	import mx.controls.Alert;
 	import mx.rpc.events.ResultEvent;
 
 	public class ProdutosAssociacaoController extends HtDbController
@@ -37,13 +40,15 @@ package components.controllers
 		}
 		
 		public function findProdutos(nuFamilia:String):void {
-			executeServiceCall(produtosAssociacaoDelegate.findProdutos(nuFamilia), resultFindProdutos);			
+			startProcessando();
+			executeService(null, produtosAssociacaoDelegate.findProdutos(nuFamilia), resultFindProdutos);			
 		}
 		
 		public function findProdutosAssociados(type:int, id:String):void{
 			currentType = type;			
 			currentId = id;
-			executeServiceCall(produtosAssociacaoDelegate.findProdutosAssociados(type, id), resultFindProdutosAssociados);
+			startProcessando()
+			executeService(null, produtosAssociacaoDelegate.findProdutosAssociados(type, id), resultFindProdutosAssociados);
 		}
 		
 		private function resultFindProdutos(event:ResultEvent):void {
@@ -56,11 +61,13 @@ package components.controllers
 		}
 		
 		public function saveProdutosAssociados():void {
+			startProcessando();
 			executeService(null, produtosAssociacaoDelegate.saveProdutosAssociados(currentType, currentId, listChanges), resultSaveProdutosAssociados);			
 		}
 		
 		private function resultSaveProdutosAssociados(event:ResultEvent):void {
 			listChanges.removeAll();
+			Alert.show("Salvo com sucesso");
 		}
 		
 		private function getIndexProduto(nuProduto:String):int {
@@ -125,8 +132,7 @@ package components.controllers
 				insert.nuProduto = nuProduto;
 				insert.operation = Prodassociationmeta.OPERATION_DELETE;
 			}			
-		}
-		
+		}		
 		
 	}
 }

@@ -17,6 +17,7 @@ package view.produtoassociacao
 	import mx.containers.VBox;
 	import mx.controls.Alert;
 	import mx.controls.DataGrid;
+	import mx.core.IFlexDisplayObject;
 	import mx.events.CloseEvent;
 	import mx.managers.PopUpManager;
 	
@@ -95,7 +96,11 @@ package view.produtoassociacao
 			{
 				case HtButtonBar.SAVE_BUTTON:
 					controller.saveProdutosAssociados();
-					break;				
+					break;
+				case HtButtonBar.CLOSE_BUTTON:
+					PopUpManager.removePopUp(IFlexDisplayObject(parent));					
+					break;
+				
 			}			
 
 		}
